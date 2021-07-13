@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+    <color name="hotpink">#e57368</color>
+    <color name="salgu">#ffd085</color>
+    <color name="jinBlack">#242424</color>
+    <color name="softBlack">#7E7E7E</color>
+    <color name="hite">#FFFFFF</color>
+
+    <color name="colorPrimary">#272727</color>
+    <color name="colorPrimaryDark">#1c1c1c</color>
+    <color name="colorAccent">#1c1c1c</color>
+
+    <color name="theme1_button">#272727</color>
+    <color name="theme1_button_press">#373737</color>
+
+    <color name="theme2_button">#33231c</color>
+    <color name="theme2_button_press">#1c0f09</color>
+
+    <color name="theme3_button">#6d0000</color>
+    <color name="theme3_button_press">#3b0101</color>
+
+    <color name="theme1_cancel_button">#dfdce1</color>
+    <color name="theme1_cancel_button_press">#c1bdc3</color>
+
+    <color name="theme2_cancel_button">#e3dcd3</color>
+    <color name="theme2_cancel_button_press">#d7cab9</color>
+
+    <color name="theme3_cancel_button">#dccccc</color>
+    <color name="theme3_cancel_button_press">#c4a6a6</color>
+
+    <color name="theme1_background">#f3f1f3</color>
+    <color name="theme2_background">#f3f1f3</color>
+    <color name="theme3_background">#f3f1f3</color>
+    <color name="background_blue">#046EA8</color>
+    <color name="btn_blue">#0066B0</color>
+
+    <color name="theme2_keypad">#f4ede4</color>
+    <color name="theme2_keypad_press">#d7cab9</color>
+
+    <color name="theme3_keypad">#f3efef</color>
+    <color name="theme3_keypad_press">#c4a6a6</color>
+    <color name="kakao">#ffed31</color>
+    <color name="kakao_press">#FFD431</color>
+
+    <color name="ivory">#F5F5F5</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="alpha">#00000000</color>
+    <color name="gray_blur">#99000000</color>
+
+    <color name="red">#ed2232</color>
+
+    <color name="textNormal">#555</color>
+    <color name="textGray">#999</color>
+    <color name="textblue">#0080C6</color>
+    <color name="editBorder">#ddd</color>
+    <color name="editBackground">#fafafa</color>
+    <color name="question_blue">#0066B0</color>
+
+    <color name="cushion_white">#eeeeee</color>
+    <color name="cushion_white_press">#d9dad6</color>
+    <color name="cushion_white_disable">#f5f5f5</color>
+
+    <color name="cusion_black">#272727</color>
+    <color name="cusion_black_press">#1c1c1c</color>
+    <color name="cusion_black_disable">#8d8d8d</color>
+
+    <color name="cusion_gray">#d2ceca</color>
+    <color name="cusion_gray_press">#dfdcd9</color>
+    <color name="cusion_gray_disable">#e8e6e4</color>
+
+    <color name="cushion_green">#435630</color>
+    <color name="cushion_green_press">#697759</color>
+    <color name="cushion_green_disable">#5d6455</color>
+
+    <color name="lightGold">#f8d3af</color>
+    <color name="gold">#c1a281</color>
+    <color name="lineBrown">#5e4740</color>
+
+    <color name="line_normal">#bcb8b3</color>
+    <color name="line_light">#eee</color>
+</resources>
