@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinner_searchType"
-            android:layout_centerHorizontal="true"
-            android:layout_width="110dp"
-            android:layout_height="40dp" />
+<!--        <Spinner-->
+<!--            android:id="@+id/spinner_searchType"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="40dp" />-->
 
         <EditText
             android:id="@+id/editText_search"

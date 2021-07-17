@@ -3,6 +3,7 @@ package com.example.capstonemainproject;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -16,10 +17,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -34,7 +37,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+import noman.googleplaces.Place;
+import noman.googleplaces.PlacesException;
+import noman.googleplaces.PlacesListener;
+
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PlacesListener {
 
     private EditText eTextSearch;
     private ImageView iViewSearch, iViewSpeaker;
@@ -86,9 +93,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // GPS 프래그먼트
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         mapFragment.getMapAsync(this);
-
-
-
 
 
         // 음성 인식(STT)
@@ -163,6 +167,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
+    // stt 음성인식 변환
+    private void getVoice() {
+        Intent intent = new Intent();
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
+        intent.setAction(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+        startActivityResult.launch(intent);
+    }
+
 
     // GPS 현재위치 구현
     @Override
@@ -198,6 +216,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             MarkerOptions markerOptions = new MarkerOptions();
 
             markerOptions.position(currentLatLng);
+            markerOptions.title("충전소명");
+            markerOptions.snippet("충전소 위치");
             markerOptions.draggable(true);
 
 
@@ -227,22 +247,61 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     };
 
+    @Override
+    public void onPlacesFailure(PlacesException e) {
 
-
-
-
-
+    }
 
     @Override
-    public void onBackPressed() {
+    public void onPlacesStart() {
+
     }
 
-    private void getVoice() {
-        Intent intent = new Intent();
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
-        intent.setAction(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+    @Override
+    public void onPlacesSuccess(List<Place> places) {
 
-        startActivityResult.launch(intent);
     }
+
+    @Override
+    public void onPlacesFinished() {
+
+    }
+
+
+    // GPS화면 클릭 리스너
+    GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            //String markerId = marker.getId();
+            //Toast.makeText(MainActivity.this, "정보창 클릭 Marker ID : ", Toast.LENGTH_SHORT).show();
+            MyDialog();
+
+        }
+    };
+
+    // 해당 충전소정보 팝업창(GPS마커 정보창 클릭시)
+    private void MyDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog alert;
+
+        builder.setTitle("부산광역시")
+                .setMessage("충전소 타입: 급속\n충전소 상태 코드: 고장/점검\n충전 방식: DC차데모+DC콤보+AC3상\n충전기 상태 갱신 시각: 2021-06-08-22:38:03")
+                .setPositiveButton("예약하기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(MainActivity.this, "예약하기", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, ReservationActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("길찾기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "길찾기", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        alert = builder.create();
+        alert.show();
+    }
+
 }
