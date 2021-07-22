@@ -1,9 +1,4 @@
-package com.example.capstonemainproject;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.ecar_service_station;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,12 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.capstonemainproject.dto.request.user.LoginDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.dto.resoponse.common.SingleResultResponse;
-import com.example.capstonemainproject.infra.app.PreferenceManager;
-import com.example.capstonemainproject.infra.app.SnackBarManager;
-import com.example.capstonemainproject.service.LoginService;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.ecar_service_station.dto.request.user.LoginDto;
+import com.example.ecar_service_station.dto.resoponse.common.CommonResponse;
+import com.example.ecar_service_station.dto.resoponse.common.SingleResultResponse;
+import com.example.ecar_service_station.infra.app.PreferenceManager;
+import com.example.ecar_service_station.infra.app.SnackBarManager;
+import com.example.ecar_service_station.service.LoginService;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.concurrent.ExecutionException;

@@ -1,19 +1,4 @@
-package com.example.capstonemainproject;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.capstonemainproject.service.SignUpService;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.ecar_service_station;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -21,10 +6,13 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.capstonemainproject.dto.request.user.SignUpDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.infra.app.SnackBarManager;
-import com.example.capstonemainproject.service.SignUpService;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.ecar_service_station.dto.request.user.SignUpDto;
+import com.example.ecar_service_station.dto.resoponse.common.CommonResponse;
+import com.example.ecar_service_station.infra.app.SnackBarManager;
+import com.example.ecar_service_station.service.SignUpService;
 
 import java.util.concurrent.ExecutionException;
 

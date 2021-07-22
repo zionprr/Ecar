@@ -1,14 +1,14 @@
-package com.example.capstonemainproject.service;
+package com.example.ecar_service_station.service;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.capstonemainproject.dto.request.search.SearchConditionDto;
-import com.example.capstonemainproject.dto.request.search.SearchLocationDto;
-import com.example.capstonemainproject.dto.request.user.LoginDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.dto.resoponse.common.SingleResultResponse;
-import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
+import com.example.ecar_service_station.dto.request.search.SearchConditionDto;
+import com.example.ecar_service_station.dto.request.search.SearchLocationDto;
+import com.example.ecar_service_station.dto.request.user.LoginDto;
+import com.example.ecar_service_station.dto.resoponse.common.CommonResponse;
+import com.example.ecar_service_station.dto.resoponse.common.SingleResultResponse;
+import com.example.ecar_service_station.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

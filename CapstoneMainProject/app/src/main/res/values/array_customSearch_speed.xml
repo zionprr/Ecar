@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="array_customSearch_speed">
-        <item>급속</item>
-        <item>완속</item>
-
-    </string-array>
-
-</resources>

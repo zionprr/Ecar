@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="array_searchType">
-        <item>지역명</item>
-        <item>충전소명</item>
-
-    </string-array>
-
-</resources>

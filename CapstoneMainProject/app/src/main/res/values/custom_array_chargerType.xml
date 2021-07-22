@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="custom_array_chargerType">
+        <item>충전기 타입</item>
+        <item>B타입(5핀)</item>
+        <item>C타입(5핀)</item>
+        <item>BC타입(5핀)</item>
+        <item>BC타입(7핀)</item>
+        <item>DC차데모</item>
+        <item>AC3상</item>
+        <item>DC콤보</item>
+        <item>DC차데모 + DC콤보</item>
+        <item>DC차데모 + AC3상</item>
+        <item>DC차데모 + DC콤보 + AC3상</item>
+    </string-array>
+
+</resources>

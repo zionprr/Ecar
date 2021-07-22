@@ -1,11 +1,11 @@
-package com.example.capstonemainproject.service;
+package com.example.ecar_service_station.service;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.capstonemainproject.dto.request.user.SignUpDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
+import com.example.ecar_service_station.dto.request.user.SignUpDto;
+import com.example.ecar_service_station.dto.resoponse.common.CommonResponse;
+import com.example.ecar_service_station.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

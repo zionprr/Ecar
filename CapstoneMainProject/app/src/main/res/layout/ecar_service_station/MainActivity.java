@@ -1,11 +1,4 @@
-package com.example.capstonemainproject;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+package com.example.ecar_service_station;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -26,15 +19,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.example.capstonemainproject.domain.Charger;
-import com.example.capstonemainproject.dto.request.search.SearchConditionDto;
-import com.example.capstonemainproject.dto.request.search.SearchLocationDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.dto.resoponse.common.ListResultResponse;
-import com.example.capstonemainproject.infra.app.GpsTracker;
-import com.example.capstonemainproject.infra.app.PreferenceManager;
-import com.example.capstonemainproject.infra.app.SnackBarManager;
-import com.example.capstonemainproject.service.SearchService;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.example.ecar_service_station.domain.Charger;
+import com.example.ecar_service_station.dto.request.search.SearchConditionDto;
+import com.example.ecar_service_station.dto.request.search.SearchLocationDto;
+import com.example.ecar_service_station.dto.resoponse.common.CommonResponse;
+import com.example.ecar_service_station.dto.resoponse.common.ListResultResponse;
+import com.example.ecar_service_station.infra.app.GpsTracker;
+import com.example.ecar_service_station.infra.app.PreferenceManager;
+import com.example.ecar_service_station.infra.app.SnackBarManager;
+import com.example.ecar_service_station.service.SearchService;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

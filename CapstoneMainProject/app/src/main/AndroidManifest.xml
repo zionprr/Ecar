@@ -18,23 +18,43 @@
         android:theme="@style/Theme.CapstoneMainProject"
         android:usesCleartextTraffic="true">
 
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="AIzaSyDSJLiMXt51NxESMerDxkSaFi_ypRRvByU" />-->
+
+        <!-- Meta data list -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDSJLiMXt51NxESMerDxkSaFi_ypRRvByU" />
+            android:value="${MAPS_API_KEY}" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/img_elec_station" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="${FCM_CHANNEL}" />
 
+        <!-- Activity list -->
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SearchActivity"/>
 
-        <activity android:name=".SignUpActivity"/>
-
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".ReservationHistoryActivy"/>
-        <activity android:name=".ReservationActivity"/>
-
+        <service
+            android:name=".infra.network.CustomFcmService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

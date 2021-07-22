@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "126183608257",
+    "project_id": "ecar-charging-station",
+    "storage_bucket": "ecar-charging-station.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126183608257:android:e87c94026b332c2ac2e940",
+        "android_client_info": {
+          "package_name": "com.example.capstonemainproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126183608257-0lnbh0n1b01mnbodp29g4ssbj5f1i0hc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfTOtpO8la7cdZ7bV-5j501sVI9CVJ9UA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126183608257-0lnbh0n1b01mnbodp29g4ssbj5f1i0hc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
