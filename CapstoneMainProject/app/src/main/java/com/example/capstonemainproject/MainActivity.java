@@ -4,27 +4,33 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.capstonemainproject.domain.Charger;
 import com.example.capstonemainproject.dto.request.search.SearchConditionDto;
@@ -35,12 +41,14 @@ import com.example.capstonemainproject.infra.app.GpsTracker;
 import com.example.capstonemainproject.infra.app.PreferenceManager;
 import com.example.capstonemainproject.infra.app.SnackBarManager;
 import com.example.capstonemainproject.service.SearchService;
+import com.example.capstonemainproject.service.UserBasicService;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -49,12 +57,19 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int PERMISSIONS_REQUEST_CODE = 3000;
+    private static final int USER_BASIC_SERVICE_GET_USER_INFO = -1;
     private static final int SEARCH_SERVICE_BY_TEXT = -15;
     private static final int SEARCH_SERVICE_BY_LOCATION = -16;
 
     private EditText eTextSearch;
     private ImageView iViewSearch, iViewSpeaker, iViewGps;
+    private LinearLayout layoutRecentAndBookmark, layoutReservationList;
     private Spinner spinnerCpType, spinnerChargerType;
+
+    private Toolbar toolBarMain;
+    private DrawerLayout drawerLayoutMain;
+    private NavigationView navigationMain;
+    private TextView textNavName, textNavEmail, textNavCash, textNavCashPoint;
 
     private GoogleMap map;
     private SupportMapFragment mapFragment;
@@ -62,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GpsTracker gpsTracker;
     private Location currentLocation;
 
+    private UserBasicService userBasicService;
     private SearchService searchService;
     private int conditionCpType;
     private int conditionChargerType;
@@ -101,21 +117,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         // 화면 설정
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
         eTextSearch = findViewById(R.id.editText_search);
         iViewSearch = findViewById(R.id.imageView_search);
         iViewSpeaker = findViewById(R.id.imageView_stt_speaker);
         iViewGps = findViewById(R.id.imageView_gps);
+        layoutRecentAndBookmark = findViewById(R.id.layout_recent_search_and_bookmark);
+        layoutReservationList = findViewById(R.id.layout_reservationList);
         spinnerCpType = findViewById(R.id.spinner_cpType);
         spinnerChargerType = findViewById(R.id.spinner_chargerType);
 
-        // 커스텀 화면 설정
-        settingCustomViews();
+        toolBarMain = findViewById(R.id.toolbar_main);
+        drawerLayoutMain = findViewById(R.id.drawer_main);
+        navigationMain = findViewById(R.id.nav_main);
+        textNavName = findViewById(R.id.textView_nav_name);
+        textNavEmail = findViewById(R.id.textView_nav_email);
+        textNavCash = findViewById(R.id.textView_nav_cash);
+        textNavCashPoint = findViewById(R.id.textView_nav_cash_point);
 
-        // 로그인 토큰 로컬 저장
+        // 로그인 토큰 저장 및 로그인 유저 정보 업데이트
         saveLoginToken();
+        updateLoginUserInfo();
+
+        // 네비게이션바 및 커스텀 화면 설정
+        settingDrawer();
+        settingCustomViews();
 
         // 화면 동작(1) : 음성 인식 (STT)
         iViewSpeaker.setOnClickListener(v -> new Thread(this::getVoice).start());
@@ -205,14 +230,54 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
+
+        // 화면 동작(4) : 최근 검색/즐겨찾기
+        layoutRecentAndBookmark.setOnClickListener(v -> {
+
+        });
+
+        // 화면 동작(6) : 예약 목록
+        layoutReservationList.setOnClickListener(v -> {
+
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        eTextSearch.setText("");
-        settingCustomViews();
+        updateLoginUserInfo();
+
+        if (conditionCpType != 0 || conditionChargerType != 0) {
+            settingCustomViews();
+        }
+
+        if (!eTextSearch.getText().toString().isEmpty()) {
+            eTextSearch.setText("");
+        }
+    }
+
+    // 지도 업로드 후 현재 위치 마커(Marker) 설정
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+
+        if (!checkLocationServicesStatus()) {
+            showDialogForLocationServiceSetting();
+
+        } else {
+            checkRuntimePermissions();
+        }
+
+        gpsTracker = new GpsTracker(MainActivity.this);
+        currentLocation = gpsTracker.getLocation();
+
+        if (currentLocation != null) {
+            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+
+            map.addMarker(new MarkerOptions().position(latLng).title("현위치"));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        }
     }
 
     @Override
@@ -232,37 +297,89 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    // 지도 업로드 후 현재 위치 마커(Marker) 설정
     @Override
-    @SuppressLint("MissingPermission")
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+//            String userName = PreferenceManager.getString(MainActivity.this, "USER_NAME");
+//            String userEmail = PreferenceManager.getString(MainActivity.this, "USER_EMAIL");
+//            int userCash = PreferenceManager.getInt(MainActivity.this, "USER_CASH");
+//            int userCashPoint = PreferenceManager.getInt(MainActivity.this, "USER_CASH_POINT");
+//
+//            textNavName.setText(userName);
+//            textNavEmail.setText(userEmail);
+//            textNavCash.setText(userCash + " 원");
+//            textNavCashPoint.setText(userCashPoint + " 포인트");
 
-        if (!checkLocationServicesStatus()) {
-            showDialogForLocationServiceSetting();
+            drawerLayoutMain.openDrawer(GravityCompat.START);
 
-        } else {
-            checkRuntimePermissions();
+            return true;
         }
 
-        gpsTracker = new GpsTracker(MainActivity.this);
-        currentLocation = gpsTracker.getLocation();
-
-        if (currentLocation != null) {
-            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-
-            map.setMyLocationEnabled(true);
-            map.addMarker(new MarkerOptions().position(latLng).title("현위치"));
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
+        if (drawerLayoutMain.isDrawerOpen(GravityCompat.START)) {
+            drawerLayoutMain.closeDrawers();
+        }
+    }
+
+    private void saveLoginToken() {
+        String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
+
+        PreferenceManager.setString(MainActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+    }
+
+    private void updateLoginUserInfo() {
+        String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
+
+        userBasicService = new UserBasicService(loginAccessToken, MainActivity.this);
+        userBasicService.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, USER_BASIC_SERVICE_GET_USER_INFO);
+    }
+
+    private void settingDrawer() {
+        setSupportActionBar(toolBarMain);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("");
+        actionBar.setSubtitle("");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_bars_solid);
+
+        navigationMain.setNavigationItemSelectedListener(item -> {
+            item.setChecked(true);
+            drawerLayoutMain.closeDrawers();
+
+            switch (item.getItemId()) {
+                case R.id.menu_user: {
+
+                }
+                case R.id.menu_account: {
+
+                }
+                case R.id.menu_car: {
+
+                }
+                case R.id.menu_bookmark: {
+
+                }
+                case R.id.menu_reservation: {
+
+                }
+                case R.id.menu_setting: {
+
+                }
+            }
+
+            return true;
+        });
     }
 
     private void settingCustomViews() {
         // 검색 조건(1) : 충전 방식
+        conditionCpType = 0;
+
         ArrayAdapter<CharSequence> adapterCpType =
                 ArrayAdapter.createFromResource(MainActivity.this, R.array.custom_array_cpType, android.R.layout.simple_spinner_item);
 
@@ -282,8 +399,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         // 검색 조건(2) : 충전기 타입
+        conditionChargerType = 0;
+
         ArrayAdapter<CharSequence> adapterChargerType =
                 ArrayAdapter.createFromResource(MainActivity.this, R.array.custom_array_chargerType, android.R.layout.simple_spinner_item);
+
 
         adapterChargerType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -303,6 +423,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // 구글맵
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         mapFragment.getMapAsync(this);
+    }
+
+    // 위치 서비스 설정 확인
+    private boolean checkLocationServicesStatus() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     private void showDialogForLocationServiceSetting() {
@@ -348,20 +476,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         ActivityCompat.requestPermissions(MainActivity.this, requiredPermissions, PERMISSIONS_REQUEST_CODE);
-    }
-
-    // 위치 서비스 설정 확인
-    private boolean checkLocationServicesStatus() {
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
-
-    private void saveLoginToken() {
-        String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
-
-        PreferenceManager.setString(MainActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
     }
 
     // STT

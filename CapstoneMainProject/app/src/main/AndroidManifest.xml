@@ -25,7 +25,7 @@
         <!-- Meta data list -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="AIzaSyAzf4khiQLMkq67jwGaI8RVuCdEVnoeVCc" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/img_elec_station" />
@@ -34,7 +34,7 @@
             android:resource="@color/colorAccent" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="${FCM_CHANNEL}" />
+            android:value="ecarChargingStation" />
 
         <!-- Activity list -->
         <activity android:name=".LoginActivity">

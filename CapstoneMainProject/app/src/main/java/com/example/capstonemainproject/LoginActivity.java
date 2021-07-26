@@ -50,9 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // 화면 설정
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
         eTextEmail = findViewById(R.id.editText_login_email);
         eTextPassword = findViewById(R.id.editText_login_password);
         btnLogin = findViewById(R.id.btn_login);

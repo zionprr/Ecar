@@ -1,17 +1,5 @@
 package com.example.capstonemainproject;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.capstonemainproject.service.SignUpService;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,9 +29,6 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         // 화면 설정
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
         eTextName = findViewById(R.id.editText_signUp_name);
         eTextPhoneNumber = findViewById(R.id.editText_signUp_phoneNumber);
         eTextEmail = findViewById(R.id.editText_signUp_email);
@@ -81,11 +66,22 @@ public class SignUpActivity extends AppCompatActivity {
                     CommonResponse commonResponse = signUpService.execute(signUpDto).get();
 
                     if (commonResponse.isSuccess()) {       // 회원가입 성공
+                        String authEmailRequestMsg = "인증 메일 요청 중입니다.";
+
+                        SnackBarManager.showMessage(v, authEmailRequestMsg);
+
                         setResult(Activity.RESULT_OK);
                         finish();
 
                     } else {                                // 회원가입 실패
-                        String signUpFailedMsg = commonResponse.getMessage();
+                        String signUpFailedMsg = null;
+
+                        if (commonResponse.getResponseCode() == -1) {
+                            signUpFailedMsg = "가입 정보를 모두 입력하세요.";
+
+                        } else {
+                            signUpFailedMsg = commonResponse.getMessage();
+                        }
 
                         SnackBarManager.showMessage(v, signUpFailedMsg);
                     }
