@@ -1,13 +1,12 @@
 package com.example.capstonemainproject;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstonemainproject.dto.request.user.SignUpDto;
 import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
@@ -33,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
         eTextPhoneNumber = findViewById(R.id.editText_signUp_phoneNumber);
         eTextEmail = findViewById(R.id.editText_signUp_email);
         eTextPassword = findViewById(R.id.editText_signUp_password);
-        eTextPasswordCheck = findViewById(R.id.editText_signUp_passwordCheck);
+        eTextPasswordCheck = findViewById(R.id.editText_signUp_password_check);
         btnRegister = findViewById(R.id.btn_signUp_register);
 
         // 회원가입 서비스 주입

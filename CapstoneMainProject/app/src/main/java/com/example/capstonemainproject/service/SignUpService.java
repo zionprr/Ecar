@@ -29,8 +29,9 @@ public class SignUpService extends AsyncTask<SignUpDto, Void, CommonResponse> {
 
         try {
             // POST 커넥션 획득(요청 객체 -> json)
-            HttpURLConnection postConnection =
-                    httpConnectionProvider.createPOSTConnection(URI, objectMapper.writeValueAsString(signUpDtos[0]));
+            HttpURLConnection postConnection = httpConnectionProvider.createPOSTConnection(URI);
+
+            httpConnectionProvider.addData(postConnection, objectMapper.writeValueAsString(signUpDtos[0]));
 
             // 응답(서버로부터) 성공
             if (postConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {

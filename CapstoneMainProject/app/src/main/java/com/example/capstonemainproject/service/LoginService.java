@@ -35,8 +35,9 @@ public class LoginService extends AsyncTask<LoginDto, Void, CommonResponse> {
         String URI = hostServer + "/login";
 
         try {
-            HttpURLConnection postConnection =
-                    httpConnectionProvider.createPOSTConnection(URI, objectMapper.writeValueAsString(loginDtos[0]));
+            HttpURLConnection postConnection = httpConnectionProvider.createPOSTConnection(URI);
+
+            httpConnectionProvider.addData(postConnection, objectMapper.writeValueAsString(loginDtos[0]));
 
             if (postConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 String jsonString = httpConnectionProvider.readData(postConnection);

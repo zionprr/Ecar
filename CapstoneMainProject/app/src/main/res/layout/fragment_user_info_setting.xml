@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserSettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ivory"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:fontFamily="@font/cafe_24_ssurround_air"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="사용자 이름"
+                android:textColor="#1478cd"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@drawable/border_rectangle_top"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <EditText
+                    android:id="@+id/editText_user_setting_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_weight="9"
+                    android:cursorVisible="false"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:hint="(사용자 이름 입력)"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:text="(사용자 이름)"
+                    android:textColor="@color/textGray"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/btn_user_setting_name_change"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/selector_button_group2"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:text="수정"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:fontFamily="@font/cafe_24_ssurround_air"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="연락처"
+                android:textColor="#1478cd"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@drawable/border_rectangle_top"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <EditText
+                    android:id="@+id/editText_user_setting_phoneNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_weight="9"
+                    android:cursorVisible="false"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:hint="(전화번호 입력)"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:text="(휴대 전화)"
+                    android:textColor="@color/textGray"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/btn_user_setting_phoneNumber_change"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/selector_button_group2"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:text="수정"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

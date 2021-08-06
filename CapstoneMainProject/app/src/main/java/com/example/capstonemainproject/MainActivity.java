@@ -1,5 +1,27 @@
 package com.example.capstonemainproject;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.speech.RecognizerIntent;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
@@ -9,28 +31,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.speech.RecognizerIntent;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.capstonemainproject.domain.Charger;
 import com.example.capstonemainproject.dto.request.search.SearchConditionDto;
@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Toolbar toolBarMain;
     private DrawerLayout drawerLayoutMain;
     private NavigationView navigationMain;
-    private TextView textNavName, textNavEmail, textNavCash, textNavCashPoint;
 
     private GoogleMap map;
     private SupportMapFragment mapFragment;
@@ -116,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 로그인 토큰 저장
+        saveLoginToken();
+
         // 화면 설정
         eTextSearch = findViewById(R.id.editText_search);
         iViewSearch = findViewById(R.id.imageView_search);
@@ -125,18 +127,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         layoutReservationList = findViewById(R.id.layout_reservationList);
         spinnerCpType = findViewById(R.id.spinner_cpType);
         spinnerChargerType = findViewById(R.id.spinner_chargerType);
-
         toolBarMain = findViewById(R.id.toolbar_main);
         drawerLayoutMain = findViewById(R.id.drawer_main);
         navigationMain = findViewById(R.id.nav_main);
-        textNavName = findViewById(R.id.textView_nav_name);
-        textNavEmail = findViewById(R.id.textView_nav_email);
-        textNavCash = findViewById(R.id.textView_nav_cash);
-        textNavCashPoint = findViewById(R.id.textView_nav_cash_point);
-
-        // 로그인 토큰 저장 및 로그인 유저 정보 업데이트
-        saveLoginToken();
-        updateLoginUserInfo();
 
         // 네비게이션바 및 커스텀 화면 설정
         settingDrawer();
@@ -162,14 +155,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 // 검색 요청 객체 생성
                 SearchConditionDto searchConditionDto = getSearchConditionDto(search);
-                String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
                 // 검색 서비스 주입
                 searchService = new SearchService(loginAccessToken, searchConditionDto);
 
                 // 충전소 검색
                 try {
-                    Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                    Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, SearchActivity.class);
                     intent.putExtra("Search", search);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
@@ -202,14 +195,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 // 검색 요청 객체 생성
                 SearchLocationDto searchLocationDto = getSearchLocationDto();
-                String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
                 // 검색 서비스 주입
                 searchService = new SearchService(loginAccessToken, searchLocationDto);
 
                 // 충전소 검색
                 try {
-                    Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                    Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, SearchActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     CommonResponse commonResponse = searchService.execute(SEARCH_SERVICE_BY_LOCATION).get();
@@ -245,7 +238,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onResume() {
         super.onResume();
-
         updateLoginUserInfo();
 
         if (conditionCpType != 0 || conditionChargerType != 0) {
@@ -269,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             checkRuntimePermissions();
         }
 
-        gpsTracker = new GpsTracker(MainActivity.this);
+        gpsTracker = new GpsTracker(com.example.capstonemainproject.MainActivity.this);
         currentLocation = gpsTracker.getLocation();
 
         if (currentLocation != null) {
@@ -287,10 +279,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (requestCode == PERMISSIONS_REQUEST_CODE && grantResults.length == requiredPermissions.length) {
             for (int result : grantResults) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
-                    View layoutMain = findViewById(R.id.layout_main);
                     String permissionSettingMsg = "위치 접근 권한이 거부되었습니다.\n애플리케이션을 다시 실행하거나 설정에서 권한을 허용해야 합니다.";
 
-                    SnackBarManager.showMessage(layoutMain, permissionSettingMsg);
+                    SnackBarManager.showMessage(findViewById(R.id.layout_main), permissionSettingMsg);
                     break;
                 }
             }
@@ -300,15 +291,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-//            String userName = PreferenceManager.getString(MainActivity.this, "USER_NAME");
-//            String userEmail = PreferenceManager.getString(MainActivity.this, "USER_EMAIL");
-//            int userCash = PreferenceManager.getInt(MainActivity.this, "USER_CASH");
-//            int userCashPoint = PreferenceManager.getInt(MainActivity.this, "USER_CASH_POINT");
-//
-//            textNavName.setText(userName);
-//            textNavEmail.setText(userEmail);
-//            textNavCash.setText(userCash + " 원");
-//            textNavCashPoint.setText(userCashPoint + " 포인트");
+            TextView textNavName = findViewById(R.id.textView_nav_name);
+            TextView textNavEmail = findViewById(R.id.textView_nav_email);
+            TextView textNavCash = findViewById(R.id.textView_nav_cash);
+            TextView textNavCashPoint = findViewById(R.id.textView_nav_cash_point);
+            Button btnCash = findViewById(R.id.btn_nav_cash);
+
+            String userName = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "USER_NAME");
+            String userEmail = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "USER_EMAIL");
+            int userCash = PreferenceManager.getInt(com.example.capstonemainproject.MainActivity.this, "USER_CASH");
+            int userCashPoint = PreferenceManager.getInt(com.example.capstonemainproject.MainActivity.this, "USER_CASH_POINT");
+
+            textNavName.setText(userName);
+            textNavEmail.setText(userEmail);
+            textNavCash.setText(String.valueOf(userCash));
+            textNavCashPoint.setText(String.valueOf(userCashPoint));
+
+            btnCash.setOnClickListener(v -> {
+                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
+
+                Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, CashActivity.class);
+                intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+
+                startActivity(intent);
+            });
 
             drawerLayoutMain.openDrawer(GravityCompat.START);
 
@@ -326,16 +332,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void saveLoginToken() {
-        String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
+        if (getIntent().hasExtra("LOGIN_ACCESS_TOKEN")) {
+            String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
 
-        PreferenceManager.setString(MainActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+        }
     }
 
     private void updateLoginUserInfo() {
-        String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
+        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
-        userBasicService = new UserBasicService(loginAccessToken, MainActivity.this);
-        userBasicService.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, USER_BASIC_SERVICE_GET_USER_INFO);
+        userBasicService = new UserBasicService(loginAccessToken, com.example.capstonemainproject.MainActivity.this);
+        userBasicService.execute(USER_BASIC_SERVICE_GET_USER_INFO);
     }
 
     private void settingDrawer() {
@@ -348,27 +356,47 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         actionBar.setHomeAsUpIndicator(R.drawable.ic_bars_solid);
 
         navigationMain.setNavigationItemSelectedListener(item -> {
-            item.setChecked(true);
             drawerLayoutMain.closeDrawers();
+
+            Intent intent;
+            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
             switch (item.getItemId()) {
                 case R.id.menu_user: {
+                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, UserActivity.class);
+                    intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
+                    startActivity(intent);
+                    break;
                 }
-                case R.id.menu_account: {
-
-                }
-                case R.id.menu_car: {
+                case R.id.menu_reservation: {
 
                 }
                 case R.id.menu_bookmark: {
 
                 }
-                case R.id.menu_reservation: {
+                case R.id.menu_car: {
+                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, CarActivity.class);
+                    intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+
+                    startActivity(intent);
+                    break;
 
                 }
-                case R.id.menu_setting: {
+                case R.id.menu_account: {
+                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, BankActivity.class);
+                    intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
+                    startActivity(intent);
+                    break;
+
+                }
+                case R.id.menu_notification: {
+                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, UserSettingActivity.class);
+                    intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+                    intent.putExtra("REQUEST_POSITION", 2);
+
+                    startActivity(intent);
                 }
             }
 
@@ -381,11 +409,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         conditionCpType = 0;
 
         ArrayAdapter<CharSequence> adapterCpType =
-                ArrayAdapter.createFromResource(MainActivity.this, R.array.custom_array_cpType, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(com.example.capstonemainproject.MainActivity.this, R.array.custom_array_cpType, android.R.layout.simple_spinner_item);
 
         adapterCpType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerCpType.setAdapter(adapterCpType);
+        spinnerCpType.setFocusable(true);
         spinnerCpType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -402,12 +431,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         conditionChargerType = 0;
 
         ArrayAdapter<CharSequence> adapterChargerType =
-                ArrayAdapter.createFromResource(MainActivity.this, R.array.custom_array_chargerType, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(com.example.capstonemainproject.MainActivity.this, R.array.custom_array_chargerType, android.R.layout.simple_spinner_item);
 
 
         adapterChargerType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerChargerType.setAdapter(adapterChargerType);
+        spinnerChargerType.setFocusable(true);
         spinnerChargerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -434,7 +464,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void showDialogForLocationServiceSetting() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(com.example.capstonemainproject.MainActivity.this);
 
         alertDialogBuilder
                 .setTitle("위치 서비스 비활성화")
@@ -445,9 +475,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     startActivityResultForLocationServiceSetting.launch(intent);
                 })
-                .setNegativeButton("취소", (dialog, which) -> {
-                    dialog.cancel();
-                })
+                .setNegativeButton("취소", (dialog, which) -> dialog.cancel())
                 .create()
                 .show();
     }
@@ -455,10 +483,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // 권한 확인
     private void checkRuntimePermissions() {
         int fineLocationPermission
-                = ContextCompat.checkSelfPermission(MainActivity.this, requiredPermissions[0]);
+                = ContextCompat.checkSelfPermission(com.example.capstonemainproject.MainActivity.this, requiredPermissions[0]);
 
         int coarseLocationPermission
-                = ContextCompat.checkSelfPermission(MainActivity.this, requiredPermissions[1]);
+                = ContextCompat.checkSelfPermission(com.example.capstonemainproject.MainActivity.this, requiredPermissions[1]);
 
         if (fineLocationPermission == PackageManager.PERMISSION_GRANTED
                 && coarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
@@ -466,16 +494,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, requiredPermissions[0])
-                || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, requiredPermissions[1])) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(com.example.capstonemainproject.MainActivity.this, requiredPermissions[0])
+                || ActivityCompat.shouldShowRequestPermissionRationale(com.example.capstonemainproject.MainActivity.this, requiredPermissions[1])) {
 
-            View layoutMain = findViewById(R.id.layout_main);
             String permissionSettingMsg = "이 애플리케이션을 실행하려면 위치 접근 권한이 필요합니다.";
 
-            SnackBarManager.showMessage(layoutMain, permissionSettingMsg);
+            SnackBarManager.showMessage(findViewById(R.id.layout_main), permissionSettingMsg);
         }
 
-        ActivityCompat.requestPermissions(MainActivity.this, requiredPermissions, PERMISSIONS_REQUEST_CODE);
+        ActivityCompat.requestPermissions(com.example.capstonemainproject.MainActivity.this, requiredPermissions, PERMISSIONS_REQUEST_CODE);
     }
 
     // STT

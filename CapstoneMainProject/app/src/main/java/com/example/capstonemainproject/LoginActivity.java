@@ -1,17 +1,15 @@
 package com.example.capstonemainproject;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstonemainproject.dto.request.user.LoginDto;
 import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
@@ -37,10 +35,9 @@ public class LoginActivity extends AppCompatActivity {
                     result -> {
                         // 회원가입 성공
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            View layoutLogin = findViewById(R.id.layout_login);
                             String signUpSuccessMsg = "회원가입이 되었습니다.\n서비스 이용을 위해 이메일 인증을 완료해주세요.";
 
-                            SnackBarManager.showMessage(layoutLogin, signUpSuccessMsg);
+                            SnackBarManager.showMessage(findViewById(R.id.layout_login), signUpSuccessMsg);
                         }
                     });
 
@@ -48,6 +45,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // FCM 디바이스 토큰 로컬 저장
+        saveDeviceToken();
 
         // 화면 설정
         eTextEmail = findViewById(R.id.editText_login_email);
@@ -58,14 +58,11 @@ public class LoginActivity extends AppCompatActivity {
         // 로그인 서비스 주입
         loginService = new LoginService();
 
-        // FCM 디바이스 토큰 로컬 저장
-        saveDeviceToken();
-
         // 화면 동작(1) : 로그인 버튼
         btnLogin.setOnClickListener(v -> {
             String email = eTextEmail.getText().toString().trim();
             String password = eTextPassword.getText().toString().trim();
-            String deviceToken = PreferenceManager.getString(LoginActivity.this, "DEVICE_TOKEN");
+            String deviceToken = PreferenceManager.getString(com.example.capstonemainproject.LoginActivity.this, "DEVICE_TOKEN");
 
             if (deviceToken.isEmpty()) {
                 String deviceTokenNullMsg = "구글 플레이 서비스 로그인이 필요합니다.";
@@ -83,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (commonResponse.isSuccess()) {       // 로그인 성공
                         SingleResultResponse<String> singleResultResponse = (SingleResultResponse<String>) commonResponse;
 
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(com.example.capstonemainproject.LoginActivity.this, MainActivity.class);
                         intent.putExtra("LOGIN_ACCESS_TOKEN", singleResultResponse.getData());
 
                         startActivity(intent);
@@ -109,10 +106,15 @@ public class LoginActivity extends AppCompatActivity {
 
         // 화면 동작(2) : 회원가입 버튼
         btnSignUp.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+            Intent intent = new Intent(com.example.capstonemainproject.LoginActivity.this, SignUpActivity.class);
 
             startActivityResultForSignUp.launch(intent);
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     private void saveDeviceToken() {
@@ -122,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.w("FCM", "Token registration failed.", task.getException());
                             }
 
-                            PreferenceManager.setString(LoginActivity.this, "DEVICE_TOKEN", task.getResult());
+                            PreferenceManager.setString(com.example.capstonemainproject.LoginActivity.this, "DEVICE_TOKEN", task.getResult());
                         }
                 );
     }

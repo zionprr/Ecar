@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@color/purple_500">
+    android:background="@color/skyblue">
 
     <ImageView
         android:id="@+id/imageView_nav_header"
@@ -22,9 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/cafe_24_ssurround_air"
         android:text="user name"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="19dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/imageView_nav_header"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,62 +35,109 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/cafe_24_ssurround_air"
         android:text="user email"
         android:textColor="@color/white"
-        android:textSize="15dp"
+        android:textSize="14dp"
         app:layout_constraintLeft_toRightOf="@+id/imageView_nav_header"
         app:layout_constraintTop_toBottomOf="@+id/textView_nav_name" />
+
+    <ImageView
+        android:id="@+id/label_cash_angle"
+        android:layout_width="10dp"
+        android:layout_height="17dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="27.5dp"
+        android:background="@drawable/ic_angle_right_solid_white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_nav_header">
+
+    </ImageView>
 
     <TextView
         android:id="@+id/label_cash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
-        android:text="◆ 충전 금액  :"
+        android:fontFamily="@font/cafe_24_ssurround_air"
+        android:text="보유 금액  :"
         android:textColor="@color/white"
-        android:textSize="15dp"
-        android:textStyle="bold|italic"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/label_cash_angle"
         app:layout_constraintTop_toBottomOf="@+id/imageView_nav_header" />
 
     <TextView
         android:id="@+id/textView_nav_cash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
-        android:text="0 원"
+        android:fontFamily="@font/cafe_24_ssurround_air"
+        android:text="0"
         android:textColor="@color/white"
-        android:textSize="15dp"
-        android:textStyle="bold|italic"
+        android:textSize="12dp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/label_cash"
         app:layout_constraintTop_toBottomOf="@+id/imageView_nav_header" />
+
+    <Button
+        android:id="@+id/btn_nav_cash"
+        android:layout_width="70dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/shape_rectangle_white"
+        android:fontFamily="@font/cafe_24_ssurround_air"
+        android:text="충전 / 환불"
+        android:textColor="@color/black"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/textView_nav_cash"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_nav_header">
+
+    </Button>
+
+    <ImageView
+        android:id="@+id/label_cash_point_angle"
+        android:layout_width="10dp"
+        android:layout_height="17dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="62dp"
+        android:background="@drawable/ic_angle_right_solid_white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_nav_header">
+
+    </ImageView>
 
     <TextView
         android:id="@+id/label_cash_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="◆ 보유 포인트  :"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="65dp"
+        android:fontFamily="@font/cafe_24_ssurround_air"
+        android:text="보유 포인트  :"
         android:textColor="@color/white"
-        android:textSize="15dp"
-        android:textStyle="bold|italic"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_cash" />
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/label_cash_point_angle"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_nav_header" />
 
     <TextView
         android:id="@+id/textView_nav_cash_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="0 포인트"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="65dp"
+        android:fontFamily="@font/cafe_24_ssurround_air"
+        android:text="0"
         android:textColor="@color/white"
-        android:textSize="15dp"
-        android:textStyle="bold|italic"
+        android:textSize="12dp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/label_cash_point"
-        app:layout_constraintTop_toBottomOf="@+id/textView_nav_cash" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_nav_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

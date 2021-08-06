@@ -1,5 +1,6 @@
 package com.example.capstonemainproject.service;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -9,6 +10,7 @@ import com.example.capstonemainproject.dto.request.user.UpdatePasswordDto;
 import com.example.capstonemainproject.dto.request.user.UpdateUserDto;
 import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
 import com.example.capstonemainproject.dto.resoponse.common.SingleResultResponse;
+import com.example.capstonemainproject.infra.app.PreferenceManager;
 import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -28,6 +30,7 @@ public class UserBasicService extends AsyncTask<Integer, Void, CommonResponse> {
     private final ObjectMapper objectMapper;
     private final String loginAccessToken;
 
+    private Context context;
     private UpdateUserDto updateUser;
     private UpdatePasswordDto updatePassword;
     private UpdateNotificationDto updateNotification;
@@ -36,6 +39,13 @@ public class UserBasicService extends AsyncTask<Integer, Void, CommonResponse> {
         this.httpConnectionProvider = new HttpConnectionProvider();
         this.objectMapper = new ObjectMapper();
         this.loginAccessToken = loginAccessToken;
+    }
+
+    public UserBasicService(String loginAccessToken, Context context) {
+        this.httpConnectionProvider = new HttpConnectionProvider();
+        this.objectMapper = new ObjectMapper();
+        this.loginAccessToken = loginAccessToken;
+        this.context = context;
     }
 
     public UserBasicService(String loginAccessToken, UpdateUserDto updateUserDto) {
@@ -71,35 +81,49 @@ public class UserBasicService extends AsyncTask<Integer, Void, CommonResponse> {
                 case USER_BASIC_SERVICE_GET_USER_INFO:
                     httpURLConnection = httpConnectionProvider.createGETConnection(URI);
 
+                    httpConnectionProvider.addHeader(httpURLConnection, "X-AUTH-TOKEN", loginAccessToken);
                     break;
 
                 case USER_BASIC_SERVICE_UPDATE_USER_INFO:
-                    httpURLConnection =
-                            httpConnectionProvider.createPOSTConnection(URI, objectMapper.writeValueAsString(updateUser));
+                    httpURLConnection = httpConnectionProvider.createPOSTConnection(URI);
 
+                    httpConnectionProvider.addHeader(httpURLConnection, "X-AUTH-TOKEN", loginAccessToken);
+                    httpConnectionProvider.addData(httpURLConnection, objectMapper.writeValueAsString(updateUser));
                     break;
 
                 case USER_BASIC_SERVICE_UPDATE_PASSWORD:
                     URI += "/password";
-                    httpURLConnection =
-                            httpConnectionProvider.createPOSTConnection(URI, objectMapper.writeValueAsString(updatePassword));
+                    httpURLConnection = httpConnectionProvider.createPOSTConnection(URI);
 
+                    httpConnectionProvider.addHeader(httpURLConnection, "X-AUTH-TOKEN", loginAccessToken);
+                    httpConnectionProvider.addData(httpURLConnection, objectMapper.writeValueAsString(updatePassword));
                     break;
 
                 case USER_BASIC_SERVICE_UPDATE_NOTIFICATION:
                     URI += "/notification";
-                    httpURLConnection =
-                            httpConnectionProvider.createPOSTConnection(URI, objectMapper.writeValueAsString(updateNotification));
-            }
+                    httpURLConnection = httpConnectionProvider.createPOSTConnection(URI);
 
-            // 헤더에 로그인 토큰 추가
-            httpConnectionProvider.addHeader(httpURLConnection, "X-AUTH-TOKEN", loginAccessToken);
+                    httpConnectionProvider.addHeader(httpURLConnection, "X-AUTH-TOKEN", loginAccessToken);
+                    httpConnectionProvider.addData(httpURLConnection, objectMapper.writeValueAsString(updateNotification));
+            }
 
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 String jsonString = httpConnectionProvider.readData(httpURLConnection);
 
                 if (requestCode[0] == USER_BASIC_SERVICE_GET_USER_INFO) {
-                    return objectMapper.readValue(jsonString, new TypeReference<SingleResultResponse<User>>() {});
+                    SingleResultResponse<User> result =
+                            objectMapper.readValue(jsonString, new TypeReference<SingleResultResponse<User>>() {});
+
+                    if (context != null) {
+                        User user = result.getData();
+
+                        PreferenceManager.setString(context, "USER_NAME", user.getName());
+                        PreferenceManager.setString(context, "USER_EMAIL", user.getEmail());
+                        PreferenceManager.setInt(context, "USER_CASH", user.getCash());
+                        PreferenceManager.setInt(context, "USER_CASH_POINT", user.getCashPoint());
+                    }
+
+                    return result;
                 }
 
                 return objectMapper.readValue(jsonString, CommonResponse.class);

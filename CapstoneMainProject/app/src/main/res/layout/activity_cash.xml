@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_cash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CashActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_cash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_cash"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/textblue" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:fontFamily="@font/cafe_24_ssurround_air"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="현재 보유 금액"
+            android:textColor="#1478cd"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_rectangle_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_cash"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:fontFamily="@font/cafe_24_ssurround_air"
+                android:gravity="center_vertical"
+                android:paddingLeft="30dp"
+                android:text="현재 보유 금액"
+                android:textColor="@color/textGray"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btn_cash_charge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_button_group2"
+                android:elevation="3dp"
+                android:fontFamily="@font/cafe_24_ssurround_air"
+                android:text="충전"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/btn_cash_refund"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_button_group2"
+                android:elevation="3dp"
+                android:fontFamily="@font/cafe_24_ssurround_air"
+                android:text="환불"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/shape_rectangle_floarlwhite"
+            android:elevation="3dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/shape_rectangle_yellow"
+                android:elevation="3dp"
+                android:fontFamily="@font/cafe_24_ssurround_air"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="5dp"
+                android:text="나의 주계좌"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/textView_account_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/shape_rectangle_white"
+                    android:elevation="5dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="center_vertical|center"
+                    android:text="계좌 정보"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView_main_account_notFound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="center_vertical"
+                    android:text="연결된 계좌가 없습니다."
+                    android:textColor="@color/textGray"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/link_bank_registration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="center_vertical"
+                    android:text="계좌 연결하기"
+                    android:textColor="#1478cd"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,6 +9,7 @@ public class PreferenceManager {
 
     private static final String DEFAULT_VALUE_STRING = "";
     private static final int DEFAULT_VALUE_INT = -1;
+    private static final boolean DEFAULT_VALUE_BOOLEAN = false;
 
     private static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
@@ -30,6 +31,14 @@ public class PreferenceManager {
         editor.apply();
     }
 
+    public static void setBoolean(Context context, String key, boolean value) {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
     public static String getString(Context context, String key) {
         SharedPreferences preferences = getPreferences(context);
 
@@ -40,5 +49,11 @@ public class PreferenceManager {
         SharedPreferences preferences = getPreferences(context);
 
         return preferences.getInt(key, DEFAULT_VALUE_INT);
+    }
+
+    public static boolean getBoolean(Context context, String key) {
+        SharedPreferences preferences = getPreferences(context);
+
+        return preferences.getBoolean(key, DEFAULT_VALUE_BOOLEAN);
     }
 }

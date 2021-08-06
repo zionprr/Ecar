@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserSettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ivory"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/border_rectangle_bottom"
+            android:orientation="vertical"
+            android:paddingTop="40dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Switch
+                    android:id="@+id/switch_user_setting_notification1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:paddingHorizontal="20dp"
+                    android:switchMinWidth="0dp"
+                    android:text="예약 충전 시작 알림"
+                    android:textColor="#1478cd"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:thumbTextPadding="15dp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_user_setting_notification1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/ivory"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:fontFamily="@font/cafe_24_ssurround_air"
+                        android:gravity="center_vertical"
+                        android:text="알림 시간 설정"
+                        android:textColor="@color/textGray"
+                        android:textSize="20dp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_user_setting_notification1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="5dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_rectangle_white"
+                        android:fontFamily="@font/cafe_24_ssurround_air" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/cafe_24_ssurround_air"
+                        android:gravity="center_vertical|center"
+                        android:text=" 분 전"
+                        android:textColor="@color/textGray"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Switch
+                    android:id="@+id/switch_user_setting_notification2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:paddingHorizontal="20dp"
+                    android:switchMinWidth="0dp"
+                    android:text="충전 종료 알림"
+                    android:textColor="#1478cd"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:thumbTextPadding="15dp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_user_setting_notification2"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/ivory"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:fontFamily="@font/cafe_24_ssurround_air"
+                        android:gravity="center_vertical"
+                        android:text="알림 시간 설정"
+                        android:textColor="@color/textGray"
+                        android:textSize="20dp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_user_setting_notification2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="5dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/shape_rectangle_white"
+                        android:fontFamily="@font/cafe_24_ssurround_air" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/cafe_24_ssurround_air"
+                        android:gravity="center_vertical|center"
+                        android:text=" 분 전"
+                        android:textColor="@color/textGray"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

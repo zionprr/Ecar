@@ -16,9 +16,7 @@
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/background_blue">
-
-        </androidx.appcompat.widget.Toolbar>
+            android:background="@color/textblue" />
 
         <LinearLayout
             android:id="@+id/layout_main"
@@ -69,6 +67,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="7"
                                 android:background="@drawable/shape_rectangle_white"
+                                android:fontFamily="@font/cafe_24_ssurround_air"
                                 android:gravity="left|center_vertical"
                                 android:hint="주소 / 충전소명"
                                 android:lines="1"
@@ -124,6 +123,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/shape_rectangle_white"
                             android:elevation="3dp"
+                            android:fontFamily="@font/cafe_24_ssurround_air"
                             android:spinnerMode="dropdown" />
 
                         <Spinner
@@ -135,6 +135,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/shape_rectangle_white"
                             android:elevation="3dp"
+                            android:fontFamily="@font/cafe_24_ssurround_air"
                             android:spinnerMode="dropdown" />
 
                     </LinearLayout>
@@ -151,7 +152,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="10dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -167,14 +167,15 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="5"
                             android:layout_marginBottom="3dp"
+                            android:layout_weight="5"
                             android:src="@drawable/outline_bookmark_24" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="3"
+                            android:fontFamily="@font/cafe_24_ssurround_air"
                             android:gravity="center"
                             android:text="최근 검색/즐겨찾기" />
 
@@ -193,16 +194,17 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="5"
                             android:layout_marginBottom="3dp"
+                            android:layout_weight="5"
                             android:src="@drawable/outline_fact_check_24" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="3"
+                            android:fontFamily="@font/cafe_24_ssurround_air"
                             android:gravity="center"
-                            android:text="예약내역" />
+                            android:text="예약/충전" />
 
                     </LinearLayout>
 
@@ -221,9 +223,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu">
-
-    </com.google.android.material.navigation.NavigationView>
+        app:menu="@menu/nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

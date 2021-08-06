@@ -6,26 +6,26 @@
             android:icon="@drawable/ic_user_circle_solid"
             android:title="사용자 계정" />
         <item
-            android:id="@+id/menu_account"
-            android:icon="@drawable/ic_wallet_solid"
-            android:title="계좌 관리" />
-        <item
-            android:id="@+id/menu_car"
-            android:icon="@drawable/ic_car_solid"
-            android:title="차량 관리" />
-    </group>
-
-    <group android:checkableBehavior="single">
+            android:id="@+id/menu_reservation"
+            android:icon="@drawable/ic_calendar_check_regular"
+            android:title="예약/충전" />
         <item
             android:id="@+id/menu_bookmark"
             android:icon="@drawable/ic_star_solid"
             android:title="즐겨찾기" />
+    </group>
+
+    <group android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_reservation"
-            android:icon="@drawable/ic_calendar_check_regular"
-            android:title="예약 내역" />
+            android:id="@+id/menu_car"
+            android:icon="@drawable/ic_car_solid"
+            android:title="차량 관리" />
         <item
-            android:id="@+id/menu_setting"
+            android:id="@+id/menu_account"
+            android:icon="@drawable/ic_wallet_solid"
+            android:title="계좌 관리" />
+        <item
+            android:id="@+id/menu_notification"
             android:icon="@drawable/ic_cog_solid"
             android:title="알림 설정" />
     </group>

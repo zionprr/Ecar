@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class HttpConnectionProvider {
 
-    private static final String HOST_SERVER = "http://192.168.219.101:8080";
+    private static final String HOST_SERVER = "http://172.21.142.121:8080";
 
     public String getHostServer() {
         return HOST_SERVER;
@@ -20,15 +20,10 @@ public class HttpConnectionProvider {
         return createConnection(uri, "GET");
     }
 
-    public HttpURLConnection createPOSTConnection(String uri, String data) throws IOException {
+    public HttpURLConnection createPOSTConnection(String uri) throws IOException {
         HttpURLConnection post = createConnection(uri, "POST");
         post.setDoOutput(true);
         post.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-
-        OutputStream outputStream = post.getOutputStream();
-        outputStream.write(data.getBytes("UTF-8"));
-        outputStream.flush();
-        outputStream.close();
 
         return post;
     }
@@ -43,6 +38,14 @@ public class HttpConnectionProvider {
 
     public void addHeader(HttpURLConnection connection, String property, String value) {
         connection.setRequestProperty(property, value);
+    }
+
+    public void addData(HttpURLConnection connection, String data) throws IOException {
+        OutputStream outputStream = connection.getOutputStream();
+        outputStream.write(data.getBytes("UTF-8"));
+
+        outputStream.flush();
+        outputStream.close();
     }
 
     public String readData(HttpURLConnection connection) throws IOException {

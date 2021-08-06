@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".BankRegistrationActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_bank_registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_bank_registration"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/textblue"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView_bank_registration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/ivory"
+                android:fontFamily="@font/cafe_24_ssurround_air"
+                android:gravity="center"
+                android:text="새 계좌 추가"
+                android:textColor="#1F51B7"
+                android:textSize="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:paddingHorizontal="10dp"
+                    android:text="계좌 기본 정보 입력"
+                    android:textColor="#1478cd"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editText_account_bankName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="left"
+                    android:hint="은행명"
+                    android:padding="10dp"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/editText_account_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="left"
+                    android:hint="계좌 번호"
+                    android:padding="10dp"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/editText_account_owner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="left"
+                    android:hint="소유주"
+                    android:padding="10dp"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/btn_account_auth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/selector_button_group"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:text="계좌 인증"
+                    android:textColor="@color/hite"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="30dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:paddingHorizontal="10dp"
+                    android:text="계좌 인증 정보 입력"
+                    android:textColor="#1478cd"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/editText_account_auth_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="left"
+                    android:hint="인증 확인 메시지"
+                    android:padding="10dp"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/editText_account_pay_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="left"
+                    android:hint="결제 비밀번호"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/editText_account_pay_password_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="left"
+                    android:hint="결제 비밀번호 확인"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/btn_account_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/selector_button_group"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:text="추가"
+                    android:textColor="@color/hite"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
