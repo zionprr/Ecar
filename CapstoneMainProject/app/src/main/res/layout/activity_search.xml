@@ -1,10 +1,302 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_search"
+    android:id="@+id/drawer_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".SearchActivity">
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_search"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/textblue" />
+
+        <LinearLayout
+            android:id="@+id/layout_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar_search"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6">
+
+                <fragment
+                    android:id="@+id/google_map2"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:weightSum="9">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="5"
+                        android:orientation="horizontal"
+                        android:weightSum="11">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_weight="8"
+                            android:background="@drawable/shape_rectangle_white"
+                            android:elevation="3dp">
+
+                            <EditText
+                                android:id="@+id/editText_search2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="7"
+                                android:background="@drawable/shape_rectangle_white"
+                                android:fontFamily="@font/cafe_24_ssurround_air"
+                                android:gravity="left|center_vertical"
+                                android:hint="주소 / 충전소명"
+                                android:lines="1"
+                                android:paddingLeft="20dp"
+                                android:textSize="15dp" />
+
+                            <ImageView
+                                android:id="@+id/imageView_stt_speaker2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_microphone_solid" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/imageView_search2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="3dp"
+                            android:layout_weight="1.5"
+                            android:background="@drawable/selector_button_group2"
+                            android:elevation="3dp"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_search_solid" />
+
+                        <ImageView
+                            android:id="@+id/imageView_gps2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="3dp"
+                            android:layout_weight="1.5"
+                            android:background="@drawable/selector_button_group2"
+                            android:elevation="3dp"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_street_view_solid" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="4"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spinner_cpType2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_rectangle_white"
+                            android:elevation="3dp"
+                            android:fontFamily="@font/cafe_24_ssurround_air"
+                            android:spinnerMode="dropdown" />
+
+                        <Spinner
+                            android:id="@+id/spinner_chargerType2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_rectangle_white"
+                            android:elevation="3dp"
+                            android:fontFamily="@font/cafe_24_ssurround_air"
+                            android:spinnerMode="dropdown" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/shape_rectangle_white"
+                    android:orientation="vertical"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="7dp">
+
+                        <ImageView
+                            android:layout_width="7dp"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/ic_map_marker_solid_green" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="0.5dp"
+                            android:fontFamily="@font/cafe_24_ssurround_air"
+                            android:gravity="center_vertical"
+                            android:text="충전 가능"
+                            android:textColor="@color/textGray"
+                            android:textSize="8dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="7dp">
+
+                        <ImageView
+                            android:layout_width="7dp"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/ic_map_marker_solid_yellow" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="0.5dp"
+                            android:fontFamily="@font/cafe_24_ssurround_air"
+                            android:gravity="center_vertical"
+                            android:text="사용중"
+                            android:textColor="@color/textGray"
+                            android:textSize="8dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="7dp">
+
+                        <ImageView
+                            android:layout_width="7dp"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/ic_map_marker_solid_red" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="0.5dp"
+                            android:fontFamily="@font/cafe_24_ssurround_air"
+                            android:gravity="center_vertical"
+                            android:text="충전 불가"
+                            android:textColor="@color/textGray"
+                            android:textSize="8dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/cafe_24_ssurround_air"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:text="검색 결과 (충전기 목록)"
+                    android:textColor="#1478cd"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_rectangle_top"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <ListView
+                        android:id="@+id/listView_charger"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@color/white"
+                        android:dividerHeight="20dp" />
+
+                    <TextView
+                        android:id="@+id/textView_search_error"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:fontFamily="@font/cafe_24_ssurround_air"
+                        android:gravity="center_vertical|center"
+                        android:text="검색 서비스 에러"
+                        android:textColor="@color/textGray"
+                        android:textSize="15dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_search"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

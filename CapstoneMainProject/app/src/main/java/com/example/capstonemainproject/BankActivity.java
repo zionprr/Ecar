@@ -46,11 +46,11 @@ public class BankActivity extends AppCompatActivity {
     private static final int BANK_SERVICE_DELETE_USER_ACCOUNT = -11;
     private static final int BANK_SERVICE_CHANGE_MAIN_USED_ACCOUNT = -12;
 
+    private Toolbar toolbarBank;
+
     private ListView listViewAccount;
     private TextView textAccountNotFound;
     private ImageView iViewNewAccount;
-
-    private Toolbar toolbarBank;
 
     private BankService bankService;
 
@@ -73,10 +73,10 @@ public class BankActivity extends AppCompatActivity {
         saveLoginToken();
 
         // 화면 설정
+        toolbarBank = findViewById(R.id.toolbar_bank);
         listViewAccount = findViewById(R.id.listView_account);
         textAccountNotFound = findViewById(R.id.textView_account_notFound);
         iViewNewAccount = findViewById(R.id.imageView_new_account);
-        toolbarBank = findViewById(R.id.toolbar_bank);
 
         // 상단바 설정
         settingActionBar();

@@ -33,6 +33,7 @@ public class UserPasswordSettingFragment extends Fragment {
     private Button btnPasswordChange;
 
     private String loginAccessToken;
+
     private UserBasicService userBasicService;
 
     public UserPasswordSettingFragment() {

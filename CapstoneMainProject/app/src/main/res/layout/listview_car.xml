@@ -68,7 +68,7 @@
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/cafe_24_ssurround_air"
             android:text="차량 모델"
-            android:textColor="@color/textGray"
+            android:textColor="@color/gray_blur"
             android:textSize="15dp"
             android:textStyle="bold" />
     </LinearLayout>

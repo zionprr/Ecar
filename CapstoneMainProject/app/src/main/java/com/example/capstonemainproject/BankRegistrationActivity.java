@@ -29,13 +29,14 @@ public class BankRegistrationActivity extends AppCompatActivity {
     private static final int BANK_SERVICE_REGISTER_USER_ACCOUNT = -9;
     private static final int BANK_SERVICE_AUTH_USER_ACCOUNT = -10;
 
+    private Toolbar toolbarBankRegistration;
+
     private EditText eTextBankName, eTextAccountNumber, eTextOwner;
     private EditText eTextAuthMsg, eTextPayPassword, eTextPayPasswordCheck;
     private Button btnAccountAuth, btnAccountRegister;
 
-    private Toolbar toolbarBankRegistration;
-
     private BankService bankService;
+
     private Long registeredBankId;
 
     @Override
@@ -47,6 +48,7 @@ public class BankRegistrationActivity extends AppCompatActivity {
         saveLoginToken();
 
         // 화면 설정
+        toolbarBankRegistration = findViewById(R.id.toolbar_bank_registration);
         eTextBankName = findViewById(R.id.editText_account_bankName);
         eTextAccountNumber = findViewById(R.id.editText_account_number);
         eTextOwner = findViewById(R.id.editText_account_owner);
@@ -55,7 +57,6 @@ public class BankRegistrationActivity extends AppCompatActivity {
         eTextPayPasswordCheck = findViewById(R.id.editText_account_pay_password_check);
         btnAccountAuth = findViewById(R.id.btn_account_auth);
         btnAccountRegister = findViewById(R.id.btn_account_register);
-        toolbarBankRegistration = findViewById(R.id.toolbar_bank_registration);
 
         // 상단바 설정
         settingActionBar();

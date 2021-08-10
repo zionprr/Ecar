@@ -35,6 +35,7 @@ public class UserInfoSettingFragment extends Fragment {
     private Button btnUserNameChange, btnPhoneNumberChange;
 
     private String loginAccessToken;
+
     private UserBasicService userBasicService;
 
     public UserInfoSettingFragment() {

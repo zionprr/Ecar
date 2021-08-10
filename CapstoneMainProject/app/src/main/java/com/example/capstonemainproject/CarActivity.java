@@ -40,11 +40,11 @@ public class CarActivity extends AppCompatActivity {
     private static final int CAR_SERVICE_GET_USER_CARS = -5;
     private static final int CAR_SERVICE_DELETE_USER_CAR = -7;
 
+    private Toolbar toolbarCar;
+
     private ListView listViewCar;
     private TextView textCarNotFound;
     private ImageView iViewNewCar;
-
-    private Toolbar toolbarCar;
 
     private CarService carService;
 
@@ -67,10 +67,10 @@ public class CarActivity extends AppCompatActivity {
         saveLoginToken();
 
         // 화면 설정
+        toolbarCar = findViewById(R.id.toolbar_car);
         listViewCar = findViewById(R.id.listView_car);
         textCarNotFound = findViewById(R.id.textView_car_notFound);
         iViewNewCar = findViewById(R.id.imageView_new_car);
-        toolbarCar = findViewById(R.id.toolbar_car);
 
         // 상단바 설정
         settingActionBar();

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_rectangle_white"
+    android:orientation="vertical"
+    android:elevation="3dp"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/textView_marker_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/cafe_24_ssurround_air"
+        android:singleLine="true"
+        android:text="충전소 이름"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_marker_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/cafe_24_ssurround_air"
+        android:singleLine="true"
+        android:text="충전소 주소"
+        android:textColor="@color/textGray"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/cafe_24_ssurround_air"
+        android:text="[눌러서 충전기 정보 보기]"
+        android:textColor="#1478cd"
+        android:textSize="14dp"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+</LinearLayout>

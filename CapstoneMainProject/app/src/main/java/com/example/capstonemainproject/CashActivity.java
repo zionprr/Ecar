@@ -43,11 +43,11 @@ public class CashActivity extends AppCompatActivity {
     private static final int BANK_SERVICE_CHARGE_CASH = -13;
     private static final int BANK_SERVICE_REFUND_CASH = -14;
 
+    private Toolbar toolbarCash;
+
     private TextView textCash, textAccountInfo;
     private TextView textMainAccountNotFound, linkBankRegistration;
     private Button btnCashCharge, btnCashRefund;
-
-    private Toolbar toolbarCash;
 
     private UserBasicService userBasicService;
     private BankService bankService;
@@ -61,13 +61,13 @@ public class CashActivity extends AppCompatActivity {
         saveLoginToken();
 
         // 화면 설정
+        toolbarCash = findViewById(R.id.toolbar_cash);
         textCash = findViewById(R.id.textView_cash);
         textAccountInfo = findViewById(R.id.textView_account_info);
         textMainAccountNotFound = findViewById(R.id.textView_main_account_notFound);
         linkBankRegistration = findViewById(R.id.link_bank_registration);
         btnCashCharge = findViewById(R.id.btn_cash_charge);
         btnCashRefund = findViewById(R.id.btn_cash_refund);
-        toolbarCash = findViewById(R.id.toolbar_cash);
 
         // 상단바 설정
         settingActionBar();

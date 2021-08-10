@@ -61,14 +61,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int SEARCH_SERVICE_BY_TEXT = -15;
     private static final int SEARCH_SERVICE_BY_LOCATION = -16;
 
-    private EditText eTextSearch;
-    private ImageView iViewSearch, iViewSpeaker, iViewGps;
-    private LinearLayout layoutRecentAndBookmark, layoutReservationList;
-    private Spinner spinnerCpType, spinnerChargerType;
-
     private Toolbar toolBarMain;
     private DrawerLayout drawerLayoutMain;
     private NavigationView navigationMain;
+
+    private EditText eTextSearch;
+    private ImageView iViewSearch, iViewSpeaker, iViewGps;
+    private LinearLayout layoutRecentAndBookmark, layoutReservationList;
+
+    private Spinner spinnerCpType, spinnerChargerType;
+    private int conditionCpType, conditionChargerType;
 
     private GoogleMap map;
     private SupportMapFragment mapFragment;
@@ -78,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private UserBasicService userBasicService;
     private SearchService searchService;
-    private int conditionCpType;
-    private int conditionChargerType;
 
     // 필요 권한
     private final String[] requiredPermissions =
@@ -119,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         saveLoginToken();
 
         // 화면 설정
+        toolBarMain = findViewById(R.id.toolbar_main);
+        drawerLayoutMain = findViewById(R.id.drawer_main);
+        navigationMain = findViewById(R.id.nav_main);
         eTextSearch = findViewById(R.id.editText_search);
         iViewSearch = findViewById(R.id.imageView_search);
         iViewSpeaker = findViewById(R.id.imageView_stt_speaker);
@@ -127,9 +130,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         layoutReservationList = findViewById(R.id.layout_reservationList);
         spinnerCpType = findViewById(R.id.spinner_cpType);
         spinnerChargerType = findViewById(R.id.spinner_chargerType);
-        toolBarMain = findViewById(R.id.toolbar_main);
-        drawerLayoutMain = findViewById(R.id.drawer_main);
-        navigationMain = findViewById(R.id.nav_main);
 
         // 네비게이션바 및 커스텀 화면 설정
         settingDrawer();
@@ -163,8 +163,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // 충전소 검색
                 try {
                     Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, SearchActivity.class);
-                    intent.putExtra("Search", search);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+                    intent.putExtra("Search", search);
+                    intent.putExtra("ConditionCpType", conditionCpType);
+                    intent.putExtra("ConditionChargerType", conditionChargerType);
 
                     CommonResponse commonResponse = searchService.execute(SEARCH_SERVICE_BY_TEXT).get();
 
@@ -204,6 +206,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 try {
                     Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, SearchActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+                    intent.putExtra("ConditionCpType", conditionCpType);
+                    intent.putExtra("ConditionChargerType", conditionChargerType);
 
                     CommonResponse commonResponse = searchService.execute(SEARCH_SERVICE_BY_LOCATION).get();
 
@@ -242,10 +246,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (conditionCpType != 0 || conditionChargerType != 0) {
             settingCustomViews();
-        }
-
-        if (!eTextSearch.getText().toString().isEmpty()) {
-            eTextSearch.setText("");
         }
     }
 

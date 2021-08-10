@@ -81,7 +81,7 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="은행명  :"
-                android:textColor="@color/textGray"
+                android:textColor="@color/gray_blur"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="NAME"
-                android:textColor="@color/textGray"
+                android:textColor="@color/black"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
@@ -109,7 +109,7 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="계좌 번호  :"
-                android:textColor="@color/textGray"
+                android:textColor="@color/gray_blur"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="NUMBER"
-                android:textColor="@color/textGray"
+                android:textColor="@color/black"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
@@ -133,11 +133,11 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="소유주  :"
-                android:textColor="@color/textGray"
+                android:textColor="@color/gray_blur"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="NAME"
-                android:textColor="@color/textGray"
+                android:textColor="@color/black"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
@@ -165,17 +165,17 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="계좌 연결  :"
-                android:textColor="@color/textGray"
+                android:textColor="@color/gray_blur"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView_account_registeredAt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="DATE"
-                android:textColor="@color/textGray"
+                android:textColor="@color/black"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 

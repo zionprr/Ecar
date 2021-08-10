@@ -37,14 +37,15 @@ public class UserNotificationSettingFragment extends Fragment {
     private View currentView;
 
     private LinearLayout layoutNotification1, layoutNotification2;
+
     private Switch switchNotification1, switchNotification2;
     private Spinner spinnerNotification1, spinnerNotification2;
+    private int minutesNotification1, minutesNotification2;
 
     private String loginAccessToken;
-    private UserBasicService userBasicService;
-
     private boolean isChanged;
-    private int minutesNotification1, minutesNotification2;
+
+    private UserBasicService userBasicService;
 
     public UserNotificationSettingFragment() {
     }

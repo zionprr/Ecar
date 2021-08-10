@@ -28,13 +28,13 @@ public class UserActivity extends AppCompatActivity {
     private static final int BANK_REGISTRATION_ACTIVITY_RESULT_OK = 101;
     private static final int USER_BASIC_SERVICE_GET_USER_INFO = -1;
 
+    private Toolbar toolbarUser;
+
     private TextView textProfileName, textProfileEmail, textProfilePhoneNumber;
     private TextView textUserCash, textUserCashPoint;
     private LinearLayout layoutUserSetting, layoutUserPassword, layoutUserNotification;
     private LinearLayout layoutCarList, layoutNewCar;
     private LinearLayout layoutAccountList, layoutNewAccount, layoutUserCash;
-
-    private Toolbar toolbarUser;
 
     private UserBasicService userBasicService;
 
@@ -59,6 +59,7 @@ public class UserActivity extends AppCompatActivity {
         saveLoginToken();
 
         // 화면 설정
+        toolbarUser = findViewById(R.id.toolbar_user);
         textProfileName = findViewById(R.id.user_profile_name);
         textProfileEmail = findViewById(R.id.user_profile_email);
         textProfilePhoneNumber = findViewById(R.id.user_profile_phoneNumber);
@@ -72,7 +73,6 @@ public class UserActivity extends AppCompatActivity {
         layoutAccountList = findViewById(R.id.layout_user_account_list);
         layoutNewAccount = findViewById(R.id.layout_user_new_account);
         layoutUserCash = findViewById(R.id.layout_user_cash);
-        toolbarUser = findViewById(R.id.toolbar_user);
 
         // 상단바 설정
         settingActionBar();
@@ -170,8 +170,8 @@ public class UserActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            startActivity(new Intent(com.example.capstonemainproject.UserActivity.this, MainActivity.class));
             finish();
+            startActivity(new Intent(com.example.capstonemainproject.UserActivity.this, MainActivity.class));
 
             return true;
         }

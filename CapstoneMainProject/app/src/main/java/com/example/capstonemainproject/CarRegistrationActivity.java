@@ -25,10 +25,10 @@ public class CarRegistrationActivity extends AppCompatActivity {
     private static final int CAR_REGISTRATION_ACTIVITY_RESULT_OK = 100;
     private static final int CAR_SERVICE_REGISTER_USER_CAR = -6;
 
+    private Toolbar toolbarCarRegistration;
+
     private EditText eTextCarModel, eTextCarModelYear, eTextCarType, eTextCarNumber;
     private Button btnCarRegister;
-
-    private Toolbar toolbarCarRegistration;
 
     private CarService carService;
 
@@ -41,12 +41,12 @@ public class CarRegistrationActivity extends AppCompatActivity {
         saveLoginToken();
 
         // 화면 설정
+        toolbarCarRegistration = findViewById(R.id.toolbar_car_registration);
         eTextCarModel = findViewById(R.id.editText_car_model);
         eTextCarModelYear = findViewById(R.id.editText_car_model_year);
         eTextCarType = findViewById(R.id.editText_car_type);
         eTextCarNumber = findViewById(R.id.editText_car_number);
         btnCarRegister = findViewById(R.id.btn_car_register);
-        toolbarCarRegistration = findViewById(R.id.toolbar_car_registration);
 
         // 상단바 설정
         settingActionBar();
