@@ -56,7 +56,6 @@
         <activity android:name=".CashActivity" />
         <activity android:name=".ChargerActivity" />
         <activity android:name=".ReservationActivity">
-        </activity>
 
         <service
             android:name=".infra.network.CustomFcmService"
