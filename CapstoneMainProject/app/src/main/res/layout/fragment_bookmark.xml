@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ivory"
+    tools:context=".HistoryAndBookmarkActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:background="@color/ivory"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textView_bookmark_found"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cafe_24_ssurround_air"
+            android:gravity="center_vertical|center"
+            android:text="목록을 눌러 충전소 정보를 확인할 수 있습니다."
+            android:textColor="@color/textGray"
+            android:layout_marginBottom="20dp"
+            android:textSize="15dp"
+            android:visibility="gone"
+            />
+
+        <ListView
+            android:id="@+id/listView_bookmark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/white"
+            android:dividerHeight="20dp" />
+
+        <TextView
+            android:id="@+id/textView_bookmark_notFound"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:fontFamily="@font/cafe_24_ssurround_air"
+            android:gravity="center_vertical|center"
+            android:text="등록된 즐겨찾기가 없습니다."
+            android:textColor="@color/textGray"
+            android:textSize="15dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</FrameLayout>

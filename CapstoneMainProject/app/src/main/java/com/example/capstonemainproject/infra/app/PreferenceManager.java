@@ -9,6 +9,7 @@ public class PreferenceManager {
 
     private static final String DEFAULT_VALUE_STRING = "";
     private static final int DEFAULT_VALUE_INT = -1;
+    private static final long DEFAULT_VALUE_LONG = -1L;
     private static final boolean DEFAULT_VALUE_BOOLEAN = false;
 
     private static SharedPreferences getPreferences(Context context) {
@@ -31,6 +32,14 @@ public class PreferenceManager {
         editor.apply();
     }
 
+    public static void setLong(Context context, String key, long value) {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putLong(key, value);
+        editor.apply();
+    }
+
     public static void setBoolean(Context context, String key, boolean value) {
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
@@ -49,6 +58,12 @@ public class PreferenceManager {
         SharedPreferences preferences = getPreferences(context);
 
         return preferences.getInt(key, DEFAULT_VALUE_INT);
+    }
+
+    public static long getLong(Context context, String key) {
+        SharedPreferences preferences = getPreferences(context);
+
+        return preferences.getLong(key, DEFAULT_VALUE_LONG);
     }
 
     public static boolean getBoolean(Context context, String key) {

@@ -71,6 +71,8 @@ public class CashActivity extends AppCompatActivity {
 
         // 상단바 설정
         settingActionBar();
+
+        // 하이퍼 링크
         makeTextViewHyperlink(linkBankRegistration);
 
         // 화면 동작(1) : 금액 충전
@@ -87,7 +89,7 @@ public class CashActivity extends AppCompatActivity {
         linkBankRegistration.setOnClickListener(v -> {
             String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.CashActivity.this, BankRegistrationActivity.class);
+            Intent intent = new Intent(com.example.capstonemainproject.CashActivity.this, com.example.capstonemainproject.BankRegistrationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivity(intent);
@@ -117,7 +119,7 @@ public class CashActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.CashActivity.this, MainActivity.class));
+            startActivity(new Intent(com.example.capstonemainproject.CashActivity.this, com.example.capstonemainproject.MainActivity.class));
 
             return true;
         }

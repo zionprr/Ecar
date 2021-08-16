@@ -44,6 +44,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SearchActivity" />
@@ -55,7 +56,10 @@
         <activity android:name=".BankRegistrationActivity" />
         <activity android:name=".CashActivity" />
         <activity android:name=".ChargerActivity" />
-        <activity android:name=".ReservationActivity">
+        <activity android:name=".ReservationActivity" />
+        <activity android:name=".StationActivity" />
+        <activity android:name=".HistoryAndBookmarkActivity">
+        </activity>
 
         <service
             android:name=".infra.network.CustomFcmService"

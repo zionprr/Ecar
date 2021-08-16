@@ -97,7 +97,7 @@ public class CarRegistrationActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.CarRegistrationActivity.this, MainActivity.class));
+            startActivity(new Intent(com.example.capstonemainproject.CarRegistrationActivity.this, com.example.capstonemainproject.MainActivity.class));
 
             return true;
         }

@@ -62,7 +62,8 @@
                     android:fontFamily="@font/cafe_24_ssurround_air"
                     android:text="수정"
                     android:textColor="@color/white"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -119,7 +120,8 @@
                     android:fontFamily="@font/cafe_24_ssurround_air"
                     android:text="수정"
                     android:textColor="@color/white"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

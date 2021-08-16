@@ -13,7 +13,6 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.capstonemainproject.LoginActivity;
 import com.example.capstonemainproject.R;
 import com.example.capstonemainproject.dto.request.user.UpdatePasswordDto;
 import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
@@ -96,13 +95,8 @@ public class UserPasswordSettingFragment extends Fragment {
                         CommonResponse commonResponse = userBasicService.execute(USER_BASIC_SERVICE_UPDATE_PASSWORD).get();
 
                         if (commonResponse.isSuccess()) {
+                            getActivity().finish();
                             startActivity(new Intent(currentContext, LoginActivity.class));
-
-                            getActivity()
-                                    .getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .remove(this)
-                                    .commit();
 
                         } else {
                             String updatePasswordFailedMsg = "현재 비밀번호가 일치하지 않습니다.";

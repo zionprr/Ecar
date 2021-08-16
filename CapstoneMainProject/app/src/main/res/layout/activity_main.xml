@@ -159,7 +159,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="1dp"
                         android:layout_weight="1"
-                        android:background="@color/white"
+                        android:background="@drawable/selector_rectangle_white"
                         android:orientation="vertical"
                         android:weightSum="8">
 
@@ -186,7 +186,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="1dp"
                         android:layout_weight="1"
-                        android:background="@color/white"
+                        android:background="@drawable/selector_rectangle_white"
                         android:orientation="vertical"
                         android:weightSum="8">
 

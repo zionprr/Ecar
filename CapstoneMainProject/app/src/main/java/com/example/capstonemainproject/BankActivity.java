@@ -85,7 +85,7 @@ public class BankActivity extends AppCompatActivity {
         iViewNewAccount.setOnClickListener(v -> {
             String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.BankActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.BankActivity.this, BankRegistrationActivity.class);
+            Intent intent = new Intent(com.example.capstonemainproject.BankActivity.this, com.example.capstonemainproject.BankRegistrationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivityResultForBank.launch(intent);
@@ -114,7 +114,7 @@ public class BankActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.BankActivity.this, MainActivity.class));
+            startActivity(new Intent(com.example.capstonemainproject.BankActivity.this, com.example.capstonemainproject.MainActivity.class));
 
             return true;
         }
@@ -160,11 +160,13 @@ public class BankActivity extends AppCompatActivity {
 
                 if (userAccountList.size() != 0) {
                     textAccountNotFound.setVisibility(View.GONE);
+                    listViewAccount.setVisibility(View.VISIBLE);
+
                     listViewAccount.setAdapter(new com.example.capstonemainproject.BankActivity.CustomAccountList(this, userAccountList));
 
                 } else {
-                    textAccountNotFound.setVisibility(View.VISIBLE);
                     listViewAccount.setVisibility(View.GONE);
+                    textAccountNotFound.setVisibility(View.VISIBLE);
                 }
 
             } else {

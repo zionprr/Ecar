@@ -152,11 +152,13 @@ public class CarActivity extends AppCompatActivity {
 
                 if (userCarList.size() != 0) {
                     textCarNotFound.setVisibility(View.GONE);
+                    listViewCar.setVisibility(View.VISIBLE);
+
                     listViewCar.setAdapter(new CustomCarList(this, userCarList));
 
                 } else {
-                    textCarNotFound.setVisibility(View.VISIBLE);
                     listViewCar.setVisibility(View.GONE);
+                    textCarNotFound.setVisibility(View.VISIBLE);
                 }
 
             } else {

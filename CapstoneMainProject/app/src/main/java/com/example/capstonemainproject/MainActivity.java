@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 // 충전소 검색
                 try {
-                    Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, SearchActivity.class);
+                    Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.SearchActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("Search", search);
                     intent.putExtra("ConditionCpType", conditionCpType);
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 // 충전소 검색
                 try {
-                    Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, SearchActivity.class);
+                    Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.SearchActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("ConditionCpType", conditionCpType);
                     intent.putExtra("ConditionChargerType", conditionChargerType);
@@ -230,7 +230,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // 화면 동작(4) : 최근 검색/즐겨찾기
         layoutRecentAndBookmark.setOnClickListener(v -> {
+            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
+            Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.HistoryAndBookmarkActivity.class);
+            intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+            intent.putExtra("REQUEST_POSITION", 0);
+
+            startActivity(intent);
         });
 
         // 화면 동작(6) : 예약 목록
@@ -363,7 +369,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             switch (item.getItemId()) {
                 case R.id.menu_user: {
-                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, UserActivity.class);
+                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.UserActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
@@ -373,15 +379,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 }
                 case R.id.menu_bookmark: {
+                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.HistoryAndBookmarkActivity.class);
+                    intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+                    intent.putExtra("REQUEST_POSITION", 1);
 
+                    startActivity(intent);
+                    break;
                 }
                 case R.id.menu_car: {
-                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, CarActivity.class);
+                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.CarActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
-
                 }
                 case R.id.menu_account: {
                     intent = new Intent(com.example.capstonemainproject.MainActivity.this, BankActivity.class);
@@ -389,7 +399,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     startActivity(intent);
                     break;
-
                 }
                 case R.id.menu_notification: {
                     intent = new Intent(com.example.capstonemainproject.MainActivity.this, UserSettingActivity.class);

@@ -77,7 +77,8 @@
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="충전"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_cash_refund"
@@ -91,7 +92,8 @@
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="환불"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
