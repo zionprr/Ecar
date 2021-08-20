@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.capstonemainproject.dto.request.user.SignUpDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
+import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

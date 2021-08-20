@@ -18,9 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.capstonemainproject.R;
 import com.example.capstonemainproject.StationActivity;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.dto.resoponse.common.ListResultResponse;
-import com.example.capstonemainproject.dto.resoponse.custom.UserHistoryDto;
+import com.example.capstonemainproject.dto.response.common.CommonResponse;
+import com.example.capstonemainproject.dto.response.common.ListResultResponse;
 import com.example.capstonemainproject.infra.app.SnackBarManager;
 import com.example.capstonemainproject.service.UserMainService;
 

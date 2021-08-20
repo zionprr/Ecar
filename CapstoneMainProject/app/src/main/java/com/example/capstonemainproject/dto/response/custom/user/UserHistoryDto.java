@@ -1,4 +1,4 @@
-package com.example.capstonemainproject.dto.resoponse.custom;
+package com.example.capstonemainproject.dto.response.custom.user;
 
 import com.example.capstonemainproject.domain.Station;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

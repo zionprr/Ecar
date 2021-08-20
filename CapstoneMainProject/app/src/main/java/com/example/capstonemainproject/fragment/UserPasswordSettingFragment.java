@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.capstonemainproject.R;
 import com.example.capstonemainproject.dto.request.user.UpdatePasswordDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
+import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.infra.app.SnackBarManager;
 import com.example.capstonemainproject.service.UserBasicService;
 

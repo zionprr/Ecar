@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.example.capstonemainproject.domain.Car;
 import com.example.capstonemainproject.dto.request.car.RegisterCarDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.dto.resoponse.common.ListResultResponse;
+import com.example.capstonemainproject.dto.response.common.CommonResponse;
+import com.example.capstonemainproject.dto.response.common.ListResultResponse;
 import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.capstonemainproject.dto.request.car.RegisterCarDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
+import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.infra.app.PreferenceManager;
 import com.example.capstonemainproject.infra.app.SnackBarManager;
 import com.example.capstonemainproject.service.CarService;

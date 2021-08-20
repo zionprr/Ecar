@@ -3,9 +3,8 @@ package com.example.capstonemainproject.service;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.dto.resoponse.common.SingleResultResponse;
-import com.example.capstonemainproject.dto.resoponse.custom.ChargerInfoDto;
+import com.example.capstonemainproject.dto.response.common.CommonResponse;
+import com.example.capstonemainproject.dto.response.common.SingleResultResponse;
 import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

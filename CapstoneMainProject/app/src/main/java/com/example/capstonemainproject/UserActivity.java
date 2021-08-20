@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.capstonemainproject.domain.User;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.dto.resoponse.common.SingleResultResponse;
+import com.example.capstonemainproject.dto.response.common.CommonResponse;
+import com.example.capstonemainproject.dto.response.common.SingleResultResponse;
 import com.example.capstonemainproject.infra.app.PreferenceManager;
 import com.example.capstonemainproject.infra.app.SnackBarManager;
 import com.example.capstonemainproject.service.UserBasicService;

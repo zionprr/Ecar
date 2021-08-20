@@ -14,9 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.capstonemainproject.dto.request.bank.AuthBankAccountDto;
 import com.example.capstonemainproject.dto.request.bank.RegisterBankAccountDto;
-import com.example.capstonemainproject.dto.resoponse.common.CommonResponse;
-import com.example.capstonemainproject.dto.resoponse.common.SingleResultResponse;
-import com.example.capstonemainproject.dto.resoponse.custom.RegisteredBankAccountDto;
+import com.example.capstonemainproject.dto.response.common.CommonResponse;
+import com.example.capstonemainproject.dto.response.common.SingleResultResponse;
 import com.example.capstonemainproject.infra.app.PreferenceManager;
 import com.example.capstonemainproject.infra.app.SnackBarManager;
 import com.example.capstonemainproject.service.BankService;

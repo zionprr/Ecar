@@ -1,4 +1,4 @@
-package com.example.capstonemainproject.dto.resoponse.common;
+package com.example.capstonemainproject.dto.response.common;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.capstonemainproject.dto.resoponse.custom;
+package com.example.capstonemainproject.dto.response.custom.bank;
 
 import lombok.Data;
 

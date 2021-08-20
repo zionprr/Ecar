@@ -1,6 +1,5 @@
-package com.example.capstonemainproject.dto.resoponse.custom;
+package com.example.capstonemainproject.dto.response.custom.reservation;
 
-import com.example.capstonemainproject.domain.Charger;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
@@ -13,11 +12,11 @@ public class ReservationStatementDto {
 
     private String reserveTitle;
 
+    private Long chargerId;
+
     private String userName;
 
     private String carNumber;
-
-    private Charger charger;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime reservedAt;
