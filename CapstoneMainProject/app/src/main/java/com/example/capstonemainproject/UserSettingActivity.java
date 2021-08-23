@@ -61,7 +61,7 @@ public class UserSettingActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.UserSettingActivity.this, com.example.capstonemainproject.MainActivity.class));
+            startActivity(new Intent(com.example.capstonemainproject.UserSettingActivity.this, MainActivity.class));
 
             return true;
         }

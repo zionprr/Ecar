@@ -25,6 +25,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 
 import com.example.capstonemainproject.domain.BankAccount;
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
@@ -39,6 +40,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class BankActivity extends AppCompatActivity {
 
     private static final int BANK_REGISTRATION_ACTIVITY_RESULT_OK = 101;
@@ -78,8 +80,9 @@ public class BankActivity extends AppCompatActivity {
         textAccountNotFound = findViewById(R.id.textView_account_notFound);
         iViewNewAccount = findViewById(R.id.imageView_new_account);
 
-        // 상단바 설정
+        // 상단바 설정 및 스크롤
         settingActionBar();
+        settingScroll();
 
         // 화면 동작
         iViewNewAccount.setOnClickListener(v -> {
@@ -93,7 +96,6 @@ public class BankActivity extends AppCompatActivity {
     }
 
     @Override
-    @RequiresApi(api = Build.VERSION_CODES.N)
     protected void onResume() {
         super.onResume();
         loadUserAccountList();
@@ -114,7 +116,7 @@ public class BankActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.BankActivity.this, com.example.capstonemainproject.MainActivity.class));
+            startActivity(new Intent(com.example.capstonemainproject.BankActivity.this, MainActivity.class));
 
             return true;
         }
@@ -145,7 +147,16 @@ public class BankActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_left_solid);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void settingScroll() {
+        NestedScrollView scrollView = findViewById(R.id.scrollView_bank);
+
+        listViewAccount.setOnTouchListener((v, event) -> {
+            scrollView.requestDisallowInterceptTouchEvent(true);
+
+            return false;
+        });
+    }
+
     private void loadUserAccountList() {
         String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.BankActivity.this, "LOGIN_ACCESS_TOKEN");
 
@@ -180,7 +191,6 @@ public class BankActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void showDialogForAccountDetails(BankAccount account) {
         Dialog dialog = new Dialog(com.example.capstonemainproject.BankActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -262,7 +272,6 @@ public class BankActivity extends AppCompatActivity {
         private final Activity context;
         private final List<BankAccount> userAccountList;
 
-        @RequiresApi(api = Build.VERSION_CODES.N)
         public CustomAccountList(Activity context, List<BankAccount> userAccountList) {
             super(context, R.layout.listview_bank_account, userAccountList);
             this.context = context;
@@ -274,7 +283,6 @@ public class BankActivity extends AppCompatActivity {
         }
 
         @Override
-        @RequiresApi(api = Build.VERSION_CODES.O)
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.listview_bank_account, null, true);

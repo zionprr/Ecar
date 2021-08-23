@@ -71,6 +71,7 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class SearchActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private static final int PERMISSIONS_REQUEST_CODE = 3000;
@@ -266,7 +267,6 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     @Override
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
@@ -378,7 +378,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             btnCash.setOnClickListener(v -> {
                 String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
-                Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, CashActivity.class);
+                Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.CashActivity.class);
                 intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                 startActivity(intent);
@@ -447,7 +447,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
 
             switch (item.getItemId()) {
                 case R.id.menu_user: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, UserActivity.class);
+                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.UserActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
@@ -457,7 +457,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
 
                 }
                 case R.id.menu_bookmark: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.HistoryAndBookmarkActivity.class);
+                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, HistoryAndBookmarkActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("REQUEST_POSITION", 1);
 
@@ -465,21 +465,21 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
                     break;
                 }
                 case R.id.menu_car: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.CarActivity.class);
+                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, CarActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
                 }
                 case R.id.menu_account: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, BankActivity.class);
+                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.BankActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
                 }
                 case R.id.menu_notification: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, UserSettingActivity.class);
+                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.UserSettingActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("REQUEST_POSITION", 2);
 
@@ -678,7 +678,6 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
         close.setOnClickListener(v -> dialog.dismiss());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void showDialogForChargerDetails(Charger charger) {
         Dialog dialog = new Dialog(com.example.capstonemainproject.SearchActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -711,7 +710,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
 
             String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, ReservationActivity.class);
+            Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.ReservationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("ChargerId", charger.getId());
 
@@ -724,7 +723,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
 
             String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.ChargerActivity.class);
+            Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, ChargerActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("ChargerId", charger.getId());
             intent.putExtra("Record", true);
@@ -787,7 +786,6 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
         }
 
         @Override
-        @RequiresApi(api = Build.VERSION_CODES.O)
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.listview_marker, null, true);
@@ -841,7 +839,6 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
         }
 
         @Override
-        @RequiresApi(api = Build.VERSION_CODES.O)
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.listview_charger, null, true);

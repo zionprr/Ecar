@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.dto.response.common.SingleResultResponse;
+import com.example.capstonemainproject.dto.response.custom.search.ChargerInfoDto;
 import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,12 +30,12 @@ public class ChargerService extends AsyncTask<Long, Void, CommonResponse> {
     }
 
     @Override
-    protected CommonResponse doInBackground(Long... chargerId) {
+    protected CommonResponse doInBackground(Long... requestCode) {
         String hostServer = httpConnectionProvider.getHostServer();
-        String URI = hostServer + "/ecar/charger/" + chargerId[0];
+        String URI = hostServer + "/ecar/charger/" + requestCode[1];
 
         try {
-            if (chargerId[1] == CHARGER_SERVICE_GET_INFO_RECORD) {
+            if (requestCode[0] == CHARGER_SERVICE_GET_INFO_RECORD) {
                 URI += "/record";
             }
 

@@ -36,6 +36,7 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="ecarChargingStation" />
 
+
         <!-- Activity list -->
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -44,7 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SearchActivity" />
@@ -56,11 +56,14 @@
         <activity android:name=".BankRegistrationActivity" />
         <activity android:name=".CashActivity" />
         <activity android:name=".ChargerActivity" />
-        <activity android:name=".ReservationActivity" />
         <activity android:name=".StationActivity" />
-        <activity android:name=".HistoryAndBookmarkActivity">
-        </activity>
+        <activity android:name=".HistoryAndBookmarkActivity" />
+        <activity android:name=".ReservationActivity" />
+        <activity android:name=".Reservation2Activity"/>
+        <activity android:name=".ReservationStatementActivity" />
 
+
+        <!-- Service list -->
         <service
             android:name=".infra.network.CustomFcmService"
             android:exported="false">

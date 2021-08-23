@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             btnCash.setOnClickListener(v -> {
                 String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
-                Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, CashActivity.class);
+                Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.CashActivity.class);
                 intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                 startActivity(intent);
@@ -394,14 +394,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     break;
                 }
                 case R.id.menu_account: {
-                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, BankActivity.class);
+                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.BankActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
                 }
                 case R.id.menu_notification: {
-                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, UserSettingActivity.class);
+                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.UserSettingActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("REQUEST_POSITION", 2);
 

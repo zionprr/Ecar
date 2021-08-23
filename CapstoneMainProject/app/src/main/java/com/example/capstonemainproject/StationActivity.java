@@ -27,6 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.capstonemainproject.domain.Charger;
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.dto.response.common.SingleResultResponse;
+import com.example.capstonemainproject.dto.response.custom.search.StationInfoDto;
 import com.example.capstonemainproject.infra.app.PreferenceManager;
 import com.example.capstonemainproject.infra.app.SnackBarManager;
 import com.example.capstonemainproject.service.StationService;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class StationActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int CHARGER_STATE_GREEN = 1;
@@ -137,7 +139,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.StationActivity.this, MainActivity.class));
+            startActivity(new Intent(com.example.capstonemainproject.StationActivity.this, com.example.capstonemainproject.MainActivity.class));
 
             return true;
         }
@@ -188,10 +190,10 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
             CommonResponse commonResponse;
 
             if (!isRecord) {
-                commonResponse = stationService.execute(stationId, STATION_SERVICE_GET_INFO).get();
+                commonResponse = stationService.execute(STATION_SERVICE_GET_INFO, stationId).get();
 
             } else {
-                commonResponse = stationService.execute(stationId, STATION_SERVICE_GET_INFO_RECORD).get();
+                commonResponse = stationService.execute(STATION_SERVICE_GET_INFO_RECORD, stationId).get();
             }
 
             if (commonResponse.isSuccess()) {
@@ -215,7 +217,6 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void showDialogForChargerDetails(Charger charger) {
         Dialog dialog = new Dialog(com.example.capstonemainproject.StationActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -248,7 +249,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
             String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.StationActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.StationActivity.this, ReservationActivity.class);
+            Intent intent = new Intent(com.example.capstonemainproject.StationActivity.this, com.example.capstonemainproject.ReservationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("ChargerId", charger.getId());
 
@@ -282,7 +283,6 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
         }
 
         @Override
-        @RequiresApi(api = Build.VERSION_CODES.O)
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.listview_charger, null, true);

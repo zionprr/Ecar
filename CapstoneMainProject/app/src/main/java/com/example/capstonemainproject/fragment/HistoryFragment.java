@@ -20,6 +20,7 @@ import com.example.capstonemainproject.R;
 import com.example.capstonemainproject.StationActivity;
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.dto.response.common.ListResultResponse;
+import com.example.capstonemainproject.dto.response.custom.user.UserHistoryDto;
 import com.example.capstonemainproject.infra.app.SnackBarManager;
 import com.example.capstonemainproject.service.UserMainService;
 
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class HistoryFragment extends Fragment {
 
     private static final long USER_MAIN_SERVICE_GET_HISTORIES = -21;
@@ -65,13 +67,11 @@ public class HistoryFragment extends Fragment {
     }
 
     @Override
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void onResume() {
         super.onResume();
         loadUserHistories();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void loadUserHistories() {
         userMainService = new UserMainService(loginAccessToken);
 
@@ -111,7 +111,6 @@ public class HistoryFragment extends Fragment {
         private final Activity context;
         private final List<UserHistoryDto> userHistoryList;
 
-        @RequiresApi(api = Build.VERSION_CODES.N)
         public CustomHistoryList(Activity context, List<UserHistoryDto> userHistoryList) {
             super(context, R.layout.listview_history, userHistoryList);
             this.context = context;
@@ -123,7 +122,6 @@ public class HistoryFragment extends Fragment {
         }
 
         @Override
-        @RequiresApi(api = Build.VERSION_CODES.O)
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.listview_history, null, true);

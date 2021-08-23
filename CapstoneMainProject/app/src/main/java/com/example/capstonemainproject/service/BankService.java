@@ -11,6 +11,7 @@ import com.example.capstonemainproject.dto.request.bank.RegisterBankAccountDto;
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.dto.response.common.ListResultResponse;
 import com.example.capstonemainproject.dto.response.common.SingleResultResponse;
+import com.example.capstonemainproject.dto.response.custom.bank.RegisteredBankAccountDto;
 import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

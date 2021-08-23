@@ -5,6 +5,9 @@ import android.util.Log;
 
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.dto.response.common.ListResultResponse;
+import com.example.capstonemainproject.dto.response.custom.reservation.ReservationStatementDto;
+import com.example.capstonemainproject.dto.response.custom.user.UserBookmarkDto;
+import com.example.capstonemainproject.dto.response.custom.user.UserHistoryDto;
 import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

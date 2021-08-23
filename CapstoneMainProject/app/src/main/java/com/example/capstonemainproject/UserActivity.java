@@ -43,7 +43,7 @@ public class UserActivity extends AppCompatActivity {
                     new ActivityResultContracts.StartActivityForResult(),
                     result -> {
                         if (result.getResultCode() == CAR_REGISTRATION_ACTIVITY_RESULT_OK) {
-                            startActivity(new Intent(com.example.capstonemainproject.UserActivity.this, com.example.capstonemainproject.CarActivity.class));
+                            startActivity(new Intent(com.example.capstonemainproject.UserActivity.this, CarActivity.class));
 
                         } else if (result.getResultCode() == BANK_REGISTRATION_ACTIVITY_RESULT_OK) {
                             startActivity(new Intent(com.example.capstonemainproject.UserActivity.this, BankActivity.class));
@@ -114,7 +114,7 @@ public class UserActivity extends AppCompatActivity {
         layoutCarList.setOnClickListener(v -> {
             String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, com.example.capstonemainproject.CarActivity.class);
+            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, CarActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivity(intent);

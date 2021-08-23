@@ -96,7 +96,7 @@ public class UserPasswordSettingFragment extends Fragment {
 
                         if (commonResponse.isSuccess()) {
                             getActivity().finish();
-                            startActivity(new Intent(currentContext, LoginActivity.class));
+                            startActivity(new Intent(currentContext, com.example.capstonemainproject.LoginActivity.class));
 
                         } else {
                             String updatePasswordFailedMsg = "현재 비밀번호가 일치하지 않습니다.";

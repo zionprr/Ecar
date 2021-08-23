@@ -4,9 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,12 +27,14 @@ import com.example.capstonemainproject.dto.response.common.ListResultResponse;
 import com.example.capstonemainproject.dto.response.common.SingleResultResponse;
 import com.example.capstonemainproject.infra.app.PreferenceManager;
 import com.example.capstonemainproject.infra.app.SnackBarManager;
+import com.example.capstonemainproject.infra.app.TextHyperLinker;
 import com.example.capstonemainproject.service.BankService;
 import com.example.capstonemainproject.service.UserBasicService;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class CashActivity extends AppCompatActivity {
 
     private static final int USER_BASIC_SERVICE_GET_USER_INFO = -1;
@@ -73,7 +72,7 @@ public class CashActivity extends AppCompatActivity {
         settingActionBar();
 
         // 하이퍼 링크
-        makeTextViewHyperlink(linkBankRegistration);
+        TextHyperLinker.makeTextViewHyperLink(linkBankRegistration);
 
         // 화면 동작(1) : 금액 충전
         btnCashCharge.setOnClickListener(v -> showDialogForChargeCash());
@@ -85,7 +84,7 @@ public class CashActivity extends AppCompatActivity {
             showDialogForRefundCash(userCash);
         });
 
-        // 화면 동작(3) : 계좌 연결
+        // 화면 동작(3) : 계좌 연결 링크
         linkBankRegistration.setOnClickListener(v -> {
             String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN");
 
@@ -97,7 +96,6 @@ public class CashActivity extends AppCompatActivity {
     }
 
     @Override
-    @RequiresApi(api = Build.VERSION_CODES.N)
     protected void onResume() {
         super.onResume();
         loadUserCash();
@@ -119,7 +117,7 @@ public class CashActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.CashActivity.this, com.example.capstonemainproject.MainActivity.class));
+            startActivity(new Intent(com.example.capstonemainproject.CashActivity.this, MainActivity.class));
 
             return true;
         }
@@ -150,14 +148,6 @@ public class CashActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_left_solid);
     }
 
-    private void makeTextViewHyperlink(TextView view) {
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
-        spannableStringBuilder.append(view.getText());
-        spannableStringBuilder.setSpan(new URLSpan("#"), 0, spannableStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        view.setText(spannableStringBuilder, TextView.BufferType.SPANNABLE);
-    }
-
     private void loadUserCash() {
         String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN");
 
@@ -185,7 +175,6 @@ public class CashActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void loadUserMainAccount() {
         String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN");
 
