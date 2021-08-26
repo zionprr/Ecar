@@ -155,14 +155,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 // 검색 요청 객체 생성
                 SearchConditionDto searchConditionDto = getSearchConditionDto(search);
-                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
                 // 검색 서비스 주입
                 searchService = new SearchService(loginAccessToken, searchConditionDto);
 
                 // 충전소 검색
                 try {
-                    Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.SearchActivity.class);
+                    Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("Search", search);
                     intent.putExtra("ConditionCpType", conditionCpType);
@@ -197,14 +197,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 // 검색 요청 객체 생성
                 SearchLocationDto searchLocationDto = getSearchLocationDto();
-                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
                 // 검색 서비스 주입
                 searchService = new SearchService(loginAccessToken, searchLocationDto);
 
                 // 충전소 검색
                 try {
-                    Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.SearchActivity.class);
+                    Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("ConditionCpType", conditionCpType);
                     intent.putExtra("ConditionChargerType", conditionChargerType);
@@ -230,9 +230,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // 화면 동작(4) : 최근 검색/즐겨찾기
         layoutRecentAndBookmark.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.HistoryAndBookmarkActivity.class);
+            Intent intent = new Intent(MainActivity.this, HistoryAndBookmarkActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("REQUEST_POSITION", 0);
 
@@ -241,7 +241,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // 화면 동작(6) : 예약 목록
         layoutReservationList.setOnClickListener(v -> {
+            String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
+            Intent intent = new Intent(MainActivity.this, ReservationStatementActivity.class);
+            intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+            intent.putExtra("REQUEST_POSITION", 0);
+
+            startActivity(intent);
         });
     }
 
@@ -267,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             checkRuntimePermissions();
         }
 
-        gpsTracker = new GpsTracker(com.example.capstonemainproject.MainActivity.this);
+        gpsTracker = new GpsTracker(MainActivity.this);
         currentLocation = gpsTracker.getLocation();
 
         if (currentLocation != null) {
@@ -303,10 +309,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             TextView textNavCashPoint = findViewById(R.id.textView_nav_cash_point);
             Button btnCash = findViewById(R.id.btn_nav_cash);
 
-            String userName = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "USER_NAME");
-            String userEmail = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "USER_EMAIL");
-            int userCash = PreferenceManager.getInt(com.example.capstonemainproject.MainActivity.this, "USER_CASH");
-            int userCashPoint = PreferenceManager.getInt(com.example.capstonemainproject.MainActivity.this, "USER_CASH_POINT");
+            String userName = PreferenceManager.getString(MainActivity.this, "USER_NAME");
+            String userEmail = PreferenceManager.getString(MainActivity.this, "USER_EMAIL");
+            int userCash = PreferenceManager.getInt(MainActivity.this, "USER_CASH");
+            int userCashPoint = PreferenceManager.getInt(MainActivity.this, "USER_CASH_POINT");
 
             textNavName.setText(userName);
             textNavEmail.setText(userEmail);
@@ -314,9 +320,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             textNavCashPoint.setText(String.valueOf(userCashPoint));
 
             btnCash.setOnClickListener(v -> {
-                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
-                Intent intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.CashActivity.class);
+                Intent intent = new Intent(MainActivity.this, CashActivity.class);
                 intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                 startActivity(intent);
@@ -341,14 +347,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (getIntent().hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(MainActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
     }
 
     private void updateLoginUserInfo() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
+        String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
-        userBasicService = new UserBasicService(loginAccessToken, com.example.capstonemainproject.MainActivity.this);
+        userBasicService = new UserBasicService(loginAccessToken, MainActivity.this);
         userBasicService.execute(USER_BASIC_SERVICE_GET_USER_INFO);
     }
 
@@ -365,21 +371,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             drawerLayoutMain.closeDrawers();
 
             Intent intent;
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.MainActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(MainActivity.this, "LOGIN_ACCESS_TOKEN");
 
             switch (item.getItemId()) {
                 case R.id.menu_user: {
-                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.UserActivity.class);
+                    intent = new Intent(MainActivity.this, UserActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
                 }
                 case R.id.menu_reservation: {
+                    intent = new Intent(MainActivity.this, ReservationStatementActivity.class);
+                    intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+                    intent.putExtra("REQUEST_POSITION", 0);
+
+                    startActivity(intent);
+                    break;
 
                 }
                 case R.id.menu_bookmark: {
-                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.HistoryAndBookmarkActivity.class);
+                    intent = new Intent(MainActivity.this, HistoryAndBookmarkActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("REQUEST_POSITION", 1);
 
@@ -387,21 +399,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     break;
                 }
                 case R.id.menu_car: {
-                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.CarActivity.class);
+                    intent = new Intent(MainActivity.this, CarActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
                 }
                 case R.id.menu_account: {
-                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.BankActivity.class);
+                    intent = new Intent(MainActivity.this, BankActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
                 }
                 case R.id.menu_notification: {
-                    intent = new Intent(com.example.capstonemainproject.MainActivity.this, com.example.capstonemainproject.UserSettingActivity.class);
+                    intent = new Intent(MainActivity.this, UserSettingActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("REQUEST_POSITION", 2);
 
@@ -418,7 +430,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         conditionCpType = 0;
 
         ArrayAdapter<CharSequence> adapterCpType =
-                ArrayAdapter.createFromResource(com.example.capstonemainproject.MainActivity.this, R.array.custom_array_cpType, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(MainActivity.this, R.array.custom_array_cpType, android.R.layout.simple_spinner_item);
 
         adapterCpType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -440,7 +452,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         conditionChargerType = 0;
 
         ArrayAdapter<CharSequence> adapterChargerType =
-                ArrayAdapter.createFromResource(com.example.capstonemainproject.MainActivity.this, R.array.custom_array_chargerType, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(MainActivity.this, R.array.custom_array_chargerType, android.R.layout.simple_spinner_item);
 
 
         adapterChargerType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -473,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void showDialogForLocationServiceSetting() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(com.example.capstonemainproject.MainActivity.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
         alertDialogBuilder
                 .setTitle("위치 서비스 비활성화")
@@ -492,10 +504,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // 권한 확인
     private void checkRuntimePermissions() {
         int fineLocationPermission
-                = ContextCompat.checkSelfPermission(com.example.capstonemainproject.MainActivity.this, requiredPermissions[0]);
+                = ContextCompat.checkSelfPermission(MainActivity.this, requiredPermissions[0]);
 
         int coarseLocationPermission
-                = ContextCompat.checkSelfPermission(com.example.capstonemainproject.MainActivity.this, requiredPermissions[1]);
+                = ContextCompat.checkSelfPermission(MainActivity.this, requiredPermissions[1]);
 
         if (fineLocationPermission == PackageManager.PERMISSION_GRANTED
                 && coarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
@@ -503,15 +515,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(com.example.capstonemainproject.MainActivity.this, requiredPermissions[0])
-                || ActivityCompat.shouldShowRequestPermissionRationale(com.example.capstonemainproject.MainActivity.this, requiredPermissions[1])) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, requiredPermissions[0])
+                || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, requiredPermissions[1])) {
 
             String permissionSettingMsg = "이 애플리케이션을 실행하려면 위치 접근 권한이 필요합니다.";
 
             SnackBarManager.showMessage(findViewById(R.id.layout_main), permissionSettingMsg);
         }
 
-        ActivityCompat.requestPermissions(com.example.capstonemainproject.MainActivity.this, requiredPermissions, PERMISSIONS_REQUEST_CODE);
+        ActivityCompat.requestPermissions(MainActivity.this, requiredPermissions, PERMISSIONS_REQUEST_CODE);
     }
 
     // STT

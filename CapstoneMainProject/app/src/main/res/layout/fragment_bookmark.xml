@@ -18,14 +18,13 @@
             android:id="@+id/textView_bookmark_found"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/cafe_24_ssurround_air"
             android:gravity="center_vertical|center"
             android:text="목록을 눌러 충전소 정보를 확인할 수 있습니다."
             android:textColor="@color/textGray"
-            android:layout_marginBottom="20dp"
             android:textSize="15dp"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
         <ListView
             android:id="@+id/listView_bookmark"
@@ -43,6 +42,7 @@
             android:text="등록된 즐겨찾기가 없습니다."
             android:textColor="@color/textGray"
             android:textSize="15dp"
+            android:textStyle="bold"
             android:visibility="gone" />
 
     </LinearLayout>

@@ -93,7 +93,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         // 화면 동작 : 즐겨찾기
         checkBoxBookmarked.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.StationActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(StationActivity.this, "LOGIN_ACCESS_TOKEN");
 
             userMainService = new UserMainService(loginAccessToken);
 
@@ -139,7 +139,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.StationActivity.this, com.example.capstonemainproject.MainActivity.class));
+            startActivity(new Intent(StationActivity.this, MainActivity.class));
 
             return true;
         }
@@ -158,13 +158,13 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
         if (currentIntent.hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = currentIntent.getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.StationActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(StationActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
 
         if (currentIntent.hasExtra("StationId")) {
             long chargerId = currentIntent.getLongExtra("StationId", -1);
 
-            PreferenceManager.setLong(com.example.capstonemainproject.StationActivity.this, "STATION_ID", chargerId);
+            PreferenceManager.setLong(StationActivity.this, "STATION_ID", chargerId);
         }
 
         isRecord = currentIntent.getBooleanExtra("Record", false);
@@ -181,8 +181,8 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void loadStationInfo() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.StationActivity.this, "LOGIN_ACCESS_TOKEN");
-        long stationId = PreferenceManager.getLong(com.example.capstonemainproject.StationActivity.this, "STATION_ID");
+        String loginAccessToken = PreferenceManager.getString(StationActivity.this, "LOGIN_ACCESS_TOKEN");
+        long stationId = PreferenceManager.getLong(StationActivity.this, "STATION_ID");
 
         stationService = new StationService(loginAccessToken);
 
@@ -218,7 +218,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void showDialogForChargerDetails(Charger charger) {
-        Dialog dialog = new Dialog(com.example.capstonemainproject.StationActivity.this);
+        Dialog dialog = new Dialog(StationActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_charger_details);
 
@@ -247,9 +247,9 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
         btnReservation.setOnClickListener(v -> {
             dialog.dismiss();
 
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.StationActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(StationActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.StationActivity.this, com.example.capstonemainproject.ReservationActivity.class);
+            Intent intent = new Intent(StationActivity.this, Reservation1Activity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("ChargerId", charger.getId());
 
@@ -260,9 +260,9 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
         btnMore.setOnClickListener(v -> {
             dialog.dismiss();
 
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.StationActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(StationActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.StationActivity.this, com.example.capstonemainproject.ChargerActivity.class);
+            Intent intent = new Intent(StationActivity.this, ChargerActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("ChargerId", charger.getId());
             intent.putExtra("Record", isRecord);

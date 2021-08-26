@@ -19,7 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class UserSettingActivity extends AppCompatActivity {
 
-    private static String[] tabTitles = {"사용자 정보", "비밀번호 변경", "알림 설정"};
+    private final String[] tabTitles = {"사용자 정보", "비밀번호 변경", "알림 설정"};
 
     private Toolbar toolbarUserSetting;
 
@@ -61,7 +61,7 @@ public class UserSettingActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.UserSettingActivity.this, MainActivity.class));
+            startActivity(new Intent(UserSettingActivity.this, MainActivity.class));
 
             return true;
         }
@@ -117,7 +117,7 @@ public class UserSettingActivity extends AppCompatActivity {
         UserNotificationSettingFragment userNotificationSettingFragment = new UserNotificationSettingFragment();
         userNotificationSettingFragment.setArguments(bundle);
 
-        UserSettingFragmentAdapter fragmentAdapter = new UserSettingFragmentAdapter(com.example.capstonemainproject.UserSettingActivity.this);
+        UserSettingFragmentAdapter fragmentAdapter = new UserSettingFragmentAdapter(UserSettingActivity.this);
         fragmentAdapter.addFragment(userInfoSettingFragment);
         fragmentAdapter.addFragment(userPasswordSettingFragment);
         fragmentAdapter.addFragment(userNotificationSettingFragment);

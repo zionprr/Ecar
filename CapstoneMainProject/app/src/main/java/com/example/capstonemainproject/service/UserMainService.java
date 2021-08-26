@@ -3,9 +3,9 @@ package com.example.capstonemainproject.service;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.capstonemainproject.domain.ReservationStatement;
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.dto.response.common.ListResultResponse;
-import com.example.capstonemainproject.dto.response.custom.reservation.ReservationStatementDto;
 import com.example.capstonemainproject.dto.response.custom.user.UserBookmarkDto;
 import com.example.capstonemainproject.dto.response.custom.user.UserHistoryDto;
 import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
@@ -81,7 +81,7 @@ public class UserMainService extends AsyncTask<Long, Void, CommonResponse> {
                     return objectMapper.readValue(jsonString, new TypeReference<ListResultResponse<UserBookmarkDto>>() {});
 
                 } else if(requestCode[0] == USER_MAIN_SERVICE_GET_RESERVATION_STATEMENTS) {
-                    return objectMapper.readValue(jsonString, new TypeReference<ListResultResponse<ReservationStatementDto>>() {});
+                    return objectMapper.readValue(jsonString, new TypeReference<ListResultResponse<ReservationStatement>>() {});
                 }
 
                 return objectMapper.readValue(jsonString, CommonResponse.class);

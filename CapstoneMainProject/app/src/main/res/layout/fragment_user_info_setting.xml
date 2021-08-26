@@ -49,7 +49,8 @@
                     android:paddingLeft="10dp"
                     android:text="(사용자 이름)"
                     android:textColor="@color/textGray"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_user_setting_name_change"
@@ -107,7 +108,8 @@
                     android:paddingLeft="10dp"
                     android:text="(휴대 전화)"
                     android:textColor="@color/textGray"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_user_setting_phoneNumber_change"

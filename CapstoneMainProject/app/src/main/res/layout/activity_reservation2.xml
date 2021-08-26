@@ -100,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="2.7"
                             android:fontFamily="@font/cafe_24_ssurround_air"
-                            android:text="충전 시작 :"
+                            android:text="충전 시작  :"
                             android:textColor="@color/gray_blur"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -130,7 +130,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="2.7"
                             android:fontFamily="@font/cafe_24_ssurround_air"
-                            android:text="충전 종료 :"
+                            android:text="충전 종료  :"
                             android:textColor="@color/gray_blur"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -177,6 +177,7 @@
                     android:id="@+id/textView_reservation2_max_end_dateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
                     android:fontFamily="@font/cafe_24_ssurround_air"
                     android:text="DATE(HOUR)"
                     android:textColor="@color/black"
@@ -202,7 +203,7 @@
                             android:layout_marginRight="20dp"
                             android:fontFamily="@font/cafe_24_ssurround_air"
                             android:paddingTop="5dp"
-                            android:text="충전 시간 선택 :"
+                            android:text="충전 시간 선택  :"
                             android:textColor="@color/gray_blur"
                             android:textSize="18dp"
                             android:textStyle="bold" />
@@ -327,7 +328,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:fontFamily="@font/cafe_24_ssurround_air"
-                            android:text="번호 :"
+                            android:text="번호  :"
                             android:textColor="@color/gray_blur"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -335,8 +336,8 @@
                         <TextView
                             android:id="@+id/textView_reservation2_carNumber"
                             android:layout_width="0dp"
-                            android:layout_weight="7"
                             android:layout_height="wrap_content"
+                            android:layout_weight="7"
                             android:fontFamily="@font/cafe_24_ssurround_air"
                             android:textColor="@color/black"
                             android:textSize="16dp"
@@ -356,7 +357,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:fontFamily="@font/cafe_24_ssurround_air"
-                            android:text="모델 :"
+                            android:text="모델  :"
                             android:textColor="@color/gray_blur"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -364,8 +365,8 @@
                         <TextView
                             android:id="@+id/textView_reservation2_carModel"
                             android:layout_width="0dp"
-                            android:layout_weight="7"
                             android:layout_height="wrap_content"
+                            android:layout_weight="7"
                             android:fontFamily="@font/cafe_24_ssurround_air"
                             android:textColor="@color/black"
                             android:textSize="16dp"
@@ -384,7 +385,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:fontFamily="@font/cafe_24_ssurround_air"
-                            android:text="종류 :"
+                            android:text="종류  :"
                             android:textColor="@color/gray_blur"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -392,8 +393,8 @@
                         <TextView
                             android:id="@+id/textView_reservation2_carType"
                             android:layout_width="0dp"
-                            android:layout_weight="7"
                             android:layout_height="wrap_content"
+                            android:layout_weight="7"
                             android:fontFamily="@font/cafe_24_ssurround_air"
                             android:textColor="@color/black"
                             android:textSize="16dp"
@@ -480,17 +481,19 @@
                 android:gravity="center_vertical|center"
                 android:text="예약 완료 후 15분 내 미결제 시 자동 취소됩니다."
                 android:textColor="@color/textGray"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
             <Button
-                android:id="@+id/btn_reservation_complete"
+                android:id="@+id/btn_reservation2_complete"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_margin="20dp"
-                android:background="@drawable/selector_button_group"
+                android:background="@drawable/selector_button_group4"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="예약 완료"
-                android:textColor="@color/hite"
+                android:textColor="@color/white"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
         </LinearLayout>

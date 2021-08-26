@@ -71,7 +71,8 @@
                                 android:hint="주소 / 충전소명"
                                 android:lines="1"
                                 android:paddingLeft="20dp"
-                                android:textSize="15dp" />
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/imageView_stt_speaker"
@@ -123,7 +124,8 @@
                             android:background="@drawable/shape_rectangle_white"
                             android:elevation="3dp"
                             android:fontFamily="@font/cafe_24_ssurround_air"
-                            android:spinnerMode="dropdown" />
+                            android:spinnerMode="dropdown"
+                            android:textStyle="bold" />
 
                         <Spinner
                             android:id="@+id/spinner_chargerType"
@@ -135,7 +137,8 @@
                             android:background="@drawable/shape_rectangle_white"
                             android:elevation="3dp"
                             android:fontFamily="@font/cafe_24_ssurround_air"
-                            android:spinnerMode="dropdown" />
+                            android:spinnerMode="dropdown"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -176,7 +179,8 @@
                             android:layout_weight="3"
                             android:fontFamily="@font/cafe_24_ssurround_air"
                             android:gravity="center"
-                            android:text="최근 검색/즐겨찾기" />
+                            android:text="최근 검색/즐겨찾기"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -203,7 +207,8 @@
                             android:layout_weight="3"
                             android:fontFamily="@font/cafe_24_ssurround_air"
                             android:gravity="center"
-                            android:text="예약/충전" />
+                            android:text="예약/충전"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 

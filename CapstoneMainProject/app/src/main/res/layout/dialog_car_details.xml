@@ -3,12 +3,13 @@
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/shape_rectangle_lavender"
+    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_rectangle_lavender_border_top"
         android:orientation="horizontal"
         android:paddingVertical="15dp"
         android:paddingLeft="15dp"
@@ -39,9 +40,9 @@
             android:layout_height="20dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/shape_rectangle_darkred"
+            android:elevation="3dp"
             android:fontFamily="@font/cafe_24_ssurround_air"
             android:text="삭제"
-            android:elevation="3dp"
             android:textColor="@color/white"
             android:textSize="12dp"
             android:textStyle="bold" />
@@ -64,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="20dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="차량 모델  :"
                 android:textColor="@color/gray_blur"
@@ -92,7 +93,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="20dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="모델 연도  :"
                 android:textColor="@color/gray_blur"
@@ -120,7 +121,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="20dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="차량 유형  :"
                 android:textColor="@color/gray_blur"
@@ -148,7 +149,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="20dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="차량 번호  :"
                 android:textColor="@color/gray_blur"
@@ -172,6 +173,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#E6E6FA"
         android:gravity="right"
         android:orientation="horizontal"
         android:padding="5dp">

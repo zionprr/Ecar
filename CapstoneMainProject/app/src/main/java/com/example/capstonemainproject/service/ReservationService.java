@@ -6,14 +6,14 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.capstonemainproject.domain.ReservationStatement;
 import com.example.capstonemainproject.dto.request.reservation.PayReservationDto;
 import com.example.capstonemainproject.dto.request.reservation.RequestReservationDto;
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.dto.response.common.SingleResultResponse;
 import com.example.capstonemainproject.dto.response.custom.reservation.ChargerTimeTableDto;
 import com.example.capstonemainproject.dto.response.custom.reservation.MaxEndDateTimeDto;
-import com.example.capstonemainproject.dto.response.custom.reservation.ReservationStatementDto;
-import com.example.capstonemainproject.dto.response.custom.reservation.ReserveResponseDto;
+import com.example.capstonemainproject.dto.response.custom.reservation.SimpleReservationInfoDto;
 import com.example.capstonemainproject.infra.network.HttpConnectionProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -32,21 +32,21 @@ public class ReservationService extends AsyncTask<Integer, Void, CommonResponse>
     private static final int RESERVATION_SERVICE_RESERVE = -28;
     private static final int RESERVATION_SERVICE_PAY = -29;
     private static final int RESERVATION_SERVICE_CANCEL = -30;
+    private static final int RESERVATION_SERVICE_GET_SIMPLE_INFO = -31;
 
     private final HttpConnectionProvider httpConnectionProvider;
     private final ObjectMapper objectMapper;
     private final String loginAccessToken;
 
-    private long chargerId;
+    private long chargerId, reservationId;
     private String startDateTime, reservedTitle;
     private RequestReservationDto requestReservationDto;
     private PayReservationDto payReservationDto;
 
-    public ReservationService(String loginAccessToken, long chargerId) {
+    public ReservationService(String loginAccessToken) {
         this.httpConnectionProvider = new HttpConnectionProvider();
         this.objectMapper = new ObjectMapper();
         this.loginAccessToken = loginAccessToken;
-        this.chargerId = chargerId;
     }
 
     public ReservationService(String loginAccessToken, long chargerId, String startDateTime) {
@@ -80,6 +80,14 @@ public class ReservationService extends AsyncTask<Integer, Void, CommonResponse>
         this.objectMapper = new ObjectMapper();
         this.loginAccessToken = loginAccessToken;
         this.payReservationDto = payReservationDto;
+    }
+
+    public void setChargerId(long chargerId) {
+        this.chargerId = chargerId;
+    }
+
+    public void setReservationId(long reservationId) {
+        this.reservationId = reservationId;
     }
 
     @Override
@@ -125,6 +133,13 @@ public class ReservationService extends AsyncTask<Integer, Void, CommonResponse>
                     httpURLConnection = httpConnectionProvider.createDELETEConnection(URI);
 
                     httpConnectionProvider.addHeader(httpURLConnection, "X-AUTH-TOKEN", loginAccessToken);
+                    break;
+
+                case RESERVATION_SERVICE_GET_SIMPLE_INFO:
+                    URI += ("/" + reservationId + "/info");
+                    httpURLConnection = httpConnectionProvider.createGETConnection(URI);
+
+                    httpConnectionProvider.addHeader(httpURLConnection, "X-AUTH-TOKEN", loginAccessToken);
             }
 
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -136,11 +151,11 @@ public class ReservationService extends AsyncTask<Integer, Void, CommonResponse>
                 } else if (requestCode[0] == RESERVATION_SERVICE_GET_MAX_END_DATE) {
                     return objectMapper.readValue(jsonString, new TypeReference<SingleResultResponse<MaxEndDateTimeDto>>() {});
 
-                } else if (requestCode[0] == RESERVATION_SERVICE_RESERVE) {
-                    return objectMapper.readValue(jsonString, new TypeReference<SingleResultResponse<ReserveResponseDto>>() {});
+                } else if(requestCode[0] == RESERVATION_SERVICE_GET_SIMPLE_INFO) {
+                    return objectMapper.readValue(jsonString, new TypeReference<SingleResultResponse<SimpleReservationInfoDto>>() {});
                 }
 
-                return objectMapper.readValue(jsonString, new TypeReference<SingleResultResponse<ReservationStatementDto>>() {});
+                return objectMapper.readValue(jsonString, new TypeReference<SingleResultResponse<ReservationStatement>>() {});
 
             } else {
                 String jsonString = httpConnectionProvider.readError(httpURLConnection);

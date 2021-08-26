@@ -326,7 +326,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/cafe_24_ssurround_air"
                                 android:text="사용자 정보 수정"
-                                android:textSize="20dp" />
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -367,7 +368,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/cafe_24_ssurround_air"
                                 android:text="비밀번호 변경"
-                                android:textSize="20dp" />
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -408,7 +410,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/cafe_24_ssurround_air"
                                 android:text="알림 설정"
-                                android:textSize="20dp" />
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -468,7 +471,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/cafe_24_ssurround_air"
                                 android:text="등록 차량 목록"
-                                android:textSize="20dp" />
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -509,7 +513,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/cafe_24_ssurround_air"
                                 android:text="새 차량 등록"
-                                android:textSize="20dp" />
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -569,7 +574,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/cafe_24_ssurround_air"
                                 android:text="연결 계좌 목록"
-                                android:textSize="20dp" />
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -610,7 +616,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/cafe_24_ssurround_air"
                                 android:text="새 계좌 추가"
-                                android:textSize="20dp" />
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -651,7 +658,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/cafe_24_ssurround_air"
                                 android:text="금액 충전/환불"
-                                android:textSize="20dp" />
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 

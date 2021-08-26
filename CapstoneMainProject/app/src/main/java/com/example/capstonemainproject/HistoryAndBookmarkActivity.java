@@ -1,9 +1,11 @@
 package com.example.capstonemainproject;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,9 +17,10 @@ import com.example.capstonemainproject.fragment.HistoryFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class HistoryAndBookmarkActivity extends AppCompatActivity {
 
-    private static String[] tabTitles = {"최근 검색 목록", "즐겨찾기"};
+    private final String[] tabTitles = {"최근 검색 목록", "즐겨찾기"};
 
     private Toolbar toolbarHistoryAndBookmark;
 
@@ -49,7 +52,7 @@ public class HistoryAndBookmarkActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.HistoryAndBookmarkActivity.this, MainActivity.class));
+            startActivity(new Intent(HistoryAndBookmarkActivity.this, MainActivity.class));
 
             return true;
         }
@@ -92,6 +95,7 @@ public class HistoryAndBookmarkActivity extends AppCompatActivity {
         ).attach();
     }
 
+
     private HistoryAndBookmarkFragmentAdapter makeFragmentAdapter() {
         Bundle bundle = new Bundle();
         bundle.putString("LOGIN_ACCESS_TOKEN", loginAccessToken);
@@ -102,7 +106,7 @@ public class HistoryAndBookmarkActivity extends AppCompatActivity {
         BookmarkFragment bookmarkFragment = new BookmarkFragment();
         bookmarkFragment.setArguments(bundle);
 
-        HistoryAndBookmarkFragmentAdapter fragmentAdapter = new HistoryAndBookmarkFragmentAdapter(com.example.capstonemainproject.HistoryAndBookmarkActivity.this);
+        HistoryAndBookmarkFragmentAdapter fragmentAdapter = new HistoryAndBookmarkFragmentAdapter(HistoryAndBookmarkActivity.this);
         fragmentAdapter.addFragment(historyFragment);
         fragmentAdapter.addFragment(bookmarkFragment);
 

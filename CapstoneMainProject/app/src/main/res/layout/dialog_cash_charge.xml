@@ -3,24 +3,25 @@
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/shape_rectangle_lightblue"
+    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="@drawable/shape_rectangle_lightblue_border_top"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
         android:paddingVertical="15dp"
         android:paddingLeft="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:fontFamily="@font/cafe_24_ssurround_air"
-            android:text="금액 충전"
-            android:textColor="@color/black"
-            android:textSize="18dp"
+            android:text="충전 정보 입력"
+            android:textColor="@color/gray_blur"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -82,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:hint="(결제 비밀번호 입력)"
+                android:inputType="textPassword"
                 android:paddingLeft="5dp"
                 android:textColor="@color/black"
                 android:textSize="12dp" />
@@ -93,6 +95,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#B0C4DE"
         android:gravity="right"
         android:orientation="horizontal"
         android:padding="5dp">
@@ -104,7 +107,7 @@
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/cafe_24_ssurround_air"
             android:text="취소"
-            android:textSize="12dp"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
         <Button
@@ -114,7 +117,7 @@
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/cafe_24_ssurround_air"
             android:text="확인"
-            android:textSize="12dp"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
     </LinearLayout>

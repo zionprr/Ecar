@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
+import com.example.capstonemainproject.domain.ReservationStatement;
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.dto.response.common.SingleResultResponse;
 import com.example.capstonemainproject.dto.response.custom.reservation.ChargerTimeTableDto;
@@ -47,7 +48,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class ReservationActivity extends AppCompatActivity {
+public class Reservation1Activity extends AppCompatActivity {
 
     private static final int RESERVATION2_ACTIVITY_RESULT_FAIL = 102;
     private static final long CHARGER_SERVICE_GET_INFO = -19;
@@ -65,6 +66,7 @@ public class ReservationActivity extends AppCompatActivity {
     private ChargerService chargerService;
     private ReservationService reservationService;
 
+    private ChargerInfoDto chargerInfo;
     private LocalDate targetDate;
     private List<ReservationTime> chargerTimeTable;
 
@@ -74,10 +76,13 @@ public class ReservationActivity extends AppCompatActivity {
                     new ActivityResultContracts.StartActivityForResult(),
                     result -> {
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.ReservationActivity.this, "LOGIN_ACCESS_TOKEN");
+                            String loginAccessToken = PreferenceManager.getString(Reservation1Activity.this, "LOGIN_ACCESS_TOKEN");
+                            ReservationStatement statement = (ReservationStatement) result.getData().getSerializableExtra("RESERVATION_STATEMENT");
 
-                            Intent intent = new Intent(com.example.capstonemainproject.ReservationActivity.this, ReservationStatementActivity.class);
+                            Intent intent = new Intent(Reservation1Activity.this, ReservationResult1Activity.class);
                             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+                            intent.putExtra("RESERVATION_STATEMENT", statement);
+                            intent.putExtra("IsNewReservation", true);
 
                             finish();
                             startActivity(intent);
@@ -93,22 +98,22 @@ public class ReservationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation);
+        setContentView(R.layout.activity_reservation1);
 
         // 인텐트 정보 저장
         saveIntentValues();
 
         // 화면 설정
-        toolbarReservation = findViewById(R.id.toolbar_reservation);
-        textStationName = findViewById(R.id.textView_reservation_station_name);
-        textStationAddress = findViewById(R.id.textView_reservation_station_address);
-        textChargerName = findViewById(R.id.textView_reservation_charger_name);
-        textChargerMode = findViewById(R.id.textView_reservation_charger_mode);
-        textChargerState = findViewById(R.id.textView_reservation_charger_state);
-        textReservationTimeNotFound = findViewById(R.id.textView_reservation_time_notFound);
-        btnReservationDate = findViewById(R.id.btn_reservation_date);
-        checkBoxReservationTimeAvailable = findViewById(R.id.checkbox_reservation_available);
-        listViewReservationTime = findViewById(R.id.listView_reservation_time);
+        toolbarReservation = findViewById(R.id.toolbar_reservation1);
+        textStationName = findViewById(R.id.textView_reservation1_station_name);
+        textStationAddress = findViewById(R.id.textView_reservation1_station_address);
+        textChargerName = findViewById(R.id.textView_reservation1_charger_name);
+        textChargerMode = findViewById(R.id.textView_reservation1_charger_mode);
+        textChargerState = findViewById(R.id.textView_reservation1_charger_state);
+        textReservationTimeNotFound = findViewById(R.id.textView_reservation1_time_notFound);
+        btnReservationDate = findViewById(R.id.btn_reservation1_date);
+        checkBoxReservationTimeAvailable = findViewById(R.id.checkbox_reservation1_available);
+        listViewReservationTime = findViewById(R.id.listView_reservation1_time);
 
         // 상단바 및 리스트뷰 스크롤
         settingActionBar();
@@ -121,7 +126,7 @@ public class ReservationActivity extends AppCompatActivity {
         checkBoxReservationTimeAvailable.setOnClickListener(v -> {
             if (checkBoxReservationTimeAvailable.isChecked()) {     // 적용
                 List<ReservationTime> availableTimeTable =
-                        chargerTimeTable.stream().filter(ReservationTime::isReserved).collect(Collectors.toList());
+                        chargerTimeTable.stream().filter(ReservationTime::isCanReserve).collect(Collectors.toList());
 
                 if (availableTimeTable.size() == 0) {
                     listViewReservationTime.setVisibility(View.GONE);
@@ -153,7 +158,14 @@ public class ReservationActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadChargerInfo();
-        loadReservationTimeTable(0);
+
+        if (chargerInfo.getState() > 2) {
+            listViewReservationTime.setVisibility(View.GONE);
+            textReservationTimeNotFound.setVisibility(View.VISIBLE);
+
+        } else {
+            loadReservationTimeTable(0);
+        }
     }
 
     @Override
@@ -171,7 +183,7 @@ public class ReservationActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.ReservationActivity.this, MainActivity.class));
+            startActivity(new Intent(Reservation1Activity.this, MainActivity.class));
 
             return true;
         }
@@ -190,13 +202,13 @@ public class ReservationActivity extends AppCompatActivity {
         if (currentIntent.hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = currentIntent.getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.ReservationActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(Reservation1Activity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
 
         if (currentIntent.hasExtra("ChargerId")) {
             long chargerId = currentIntent.getLongExtra("ChargerId", -1);
 
-            PreferenceManager.setLong(com.example.capstonemainproject.ReservationActivity.this, "CHARGER_ID", chargerId);
+            PreferenceManager.setLong(Reservation1Activity.this, "CHARGER_ID", chargerId);
         }
     }
 
@@ -211,7 +223,7 @@ public class ReservationActivity extends AppCompatActivity {
     }
 
     private void settingScroll() {
-        NestedScrollView scrollView = findViewById(R.id.scrollView_reservation);
+        NestedScrollView scrollView = findViewById(R.id.scrollView_reservation1);
 
         listViewReservationTime.setOnTouchListener((v, event) -> {
             scrollView.requestDisallowInterceptTouchEvent(true);
@@ -221,8 +233,8 @@ public class ReservationActivity extends AppCompatActivity {
     }
 
     private void loadChargerInfo() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.ReservationActivity.this, "LOGIN_ACCESS_TOKEN");
-        long chargerId = PreferenceManager.getLong(com.example.capstonemainproject.ReservationActivity.this, "CHARGER_ID");
+        String loginAccessToken = PreferenceManager.getString(Reservation1Activity.this, "LOGIN_ACCESS_TOKEN");
+        long chargerId = PreferenceManager.getLong(Reservation1Activity.this, "CHARGER_ID");
 
         chargerService = new ChargerService(loginAccessToken);
 
@@ -231,7 +243,7 @@ public class ReservationActivity extends AppCompatActivity {
 
             if (commonResponse.isSuccess()) {
                 SingleResultResponse<ChargerInfoDto> singleResultResponse = (SingleResultResponse<ChargerInfoDto>) commonResponse;
-                ChargerInfoDto chargerInfo = singleResultResponse.getData();
+                chargerInfo = singleResultResponse.getData();
 
                 textStationName.setText(chargerInfo.getStation().getStationName());
                 textStationAddress.setText(chargerInfo.getStation().getStationAddress());
@@ -251,11 +263,13 @@ public class ReservationActivity extends AppCompatActivity {
     }
 
     private void loadReservationTimeTable(int day) {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.ReservationActivity.this, "LOGIN_ACCESS_TOKEN");
-        long chargerId = PreferenceManager.getLong(com.example.capstonemainproject.ReservationActivity.this, "CHARGER_ID");
+        String loginAccessToken = PreferenceManager.getString(Reservation1Activity.this, "LOGIN_ACCESS_TOKEN");
+        long chargerId = PreferenceManager.getLong(Reservation1Activity.this, "CHARGER_ID");
 
-        reservationService = new ReservationService(loginAccessToken, chargerId);
         chargerTimeTable = new ArrayList<>();
+
+        reservationService = new ReservationService(loginAccessToken);
+        reservationService.setChargerId(chargerId);
 
         try {
             CommonResponse commonResponse = reservationService.execute(RESERVATION_SERVICE_GET_TIME_TABLE, day).get();
@@ -266,13 +280,13 @@ public class ReservationActivity extends AppCompatActivity {
 
                 timeTable
                         .getTimeTable()
-                        .forEach((time, reserved) -> chargerTimeTable.add(new ReservationTime(time, reserved)));
+                        .forEach((time, canReserve) -> chargerTimeTable.add(new ReservationTime(time, canReserve)));
 
                 chargerTimeTable.sort(Comparator.comparing(ReservationTime::getTime));
 
                 if (checkBoxReservationTimeAvailable.isChecked()) {
                     List<ReservationTime> availableTimeTable =
-                            chargerTimeTable.stream().filter(ReservationTime::isReserved).collect(Collectors.toList());
+                            chargerTimeTable.stream().filter(ReservationTime::isCanReserve).collect(Collectors.toList());
 
                     if (availableTimeTable.size() == 0) {
                         listViewReservationTime.setVisibility(View.GONE);
@@ -348,11 +362,11 @@ public class ReservationActivity extends AppCompatActivity {
     private class ReservationTime {
 
         private final String time;
-        private final boolean isReserved;
+        private final boolean canReserve;
 
-        public ReservationTime(String time, boolean isReserved) {
+        public ReservationTime(String time, boolean canReserve) {
             this.time = time;
-            this.isReserved = isReserved;
+            this.canReserve = canReserve;
         }
     }
 
@@ -362,7 +376,7 @@ public class ReservationActivity extends AppCompatActivity {
         private final List<ReservationTime> timeTable;
 
         public CustomReservationTimeList(Activity context, List<ReservationTime> timeTable) {
-            super(context, R.layout.listview_reservation_time, timeTable);
+            super(context, R.layout.listview_reservation1_time, timeTable);
             this.context = context;
             this.timeTable = timeTable;
         }
@@ -370,7 +384,7 @@ public class ReservationActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.listview_reservation_time, null, true);
+            View rowView = inflater.inflate(R.layout.listview_reservation1_time, null, true);
 
             TextView startTime = rowView.findViewById(R.id.listView_reservation_time_start);
             Button btnReservedTrue = rowView.findViewById(R.id.btn_reservation_time_true);
@@ -380,7 +394,7 @@ public class ReservationActivity extends AppCompatActivity {
 
             startTime.setText(reservationTime.getTime());
 
-            if (!reservationTime.isReserved()) {
+            if (!reservationTime.isCanReserve()) {
                 btnReservedTrue.setVisibility(View.GONE);
                 btnReservedFalse.setVisibility(View.VISIBLE);
 
@@ -389,13 +403,13 @@ public class ReservationActivity extends AppCompatActivity {
                 btnReservedTrue.setVisibility(View.VISIBLE);
 
                 btnReservedTrue.setOnClickListener(v -> {
-                    String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.ReservationActivity.this, "LOGIN_ACCESS_TOKEN");
-                    long chargerId = PreferenceManager.getLong(com.example.capstonemainproject.ReservationActivity.this, "CHARGER_ID");
+                    String loginAccessToken = PreferenceManager.getString(Reservation1Activity.this, "LOGIN_ACCESS_TOKEN");
+                    long chargerId = PreferenceManager.getLong(Reservation1Activity.this, "CHARGER_ID");
 
                     String startDateTime =
                             targetDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) + " " + reservationTime.getTime();
 
-                    Intent intent = new Intent(com.example.capstonemainproject.ReservationActivity.this, Reservation2Activity.class);
+                    Intent intent = new Intent(Reservation1Activity.this, Reservation2Activity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("ChargerId", chargerId);
                     intent.putExtra("StartDateTime", startDateTime);

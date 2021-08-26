@@ -66,9 +66,9 @@ public class ChargerActivity extends AppCompatActivity {
         // 화면 동작(1) : 충전소 링크
         textStationName.setOnClickListener(v -> {
             if (chargerInfo != null) {
-                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.ChargerActivity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(ChargerActivity.this, "LOGIN_ACCESS_TOKEN");
 
-                Intent intent = new Intent(com.example.capstonemainproject.ChargerActivity.this, StationActivity.class);
+                Intent intent = new Intent(ChargerActivity.this, StationActivity.class);
                 intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                 intent.putExtra("StationId", chargerInfo.getStation().getId());
                 intent.putExtra("Record", isRecord);
@@ -79,10 +79,10 @@ public class ChargerActivity extends AppCompatActivity {
 
         // 화면 동작(2) : 예약하기
         btnReservation.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.ChargerActivity.this, "LOGIN_ACCESS_TOKEN");
-            long chargerId = PreferenceManager.getLong(com.example.capstonemainproject.ChargerActivity.this, "ChargerId");
+            String loginAccessToken = PreferenceManager.getString(ChargerActivity.this, "LOGIN_ACCESS_TOKEN");
+            long chargerId = PreferenceManager.getLong(ChargerActivity.this, "ChargerId");
 
-            Intent intent = new Intent(com.example.capstonemainproject.ChargerActivity.this, com.example.capstonemainproject.ReservationActivity.class);
+            Intent intent = new Intent(ChargerActivity.this, Reservation1Activity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("ChargerId", chargerId);
 
@@ -111,7 +111,7 @@ public class ChargerActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.ChargerActivity.this, MainActivity.class));
+            startActivity(new Intent(ChargerActivity.this, MainActivity.class));
 
             return true;
         }
@@ -130,13 +130,13 @@ public class ChargerActivity extends AppCompatActivity {
         if (currentIntent.hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = currentIntent.getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.ChargerActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(ChargerActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
 
         if (currentIntent.hasExtra("ChargerId")) {
             long chargerId = currentIntent.getLongExtra("ChargerId", -1);
 
-            PreferenceManager.setLong(com.example.capstonemainproject.ChargerActivity.this, "CHARGER_ID", chargerId);
+            PreferenceManager.setLong(ChargerActivity.this, "CHARGER_ID", chargerId);
         }
 
         isRecord = getIntent().getBooleanExtra("Record", false);
@@ -153,8 +153,8 @@ public class ChargerActivity extends AppCompatActivity {
     }
 
     private void loadChargerInfo() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.ChargerActivity.this, "LOGIN_ACCESS_TOKEN");
-        long chargerId = PreferenceManager.getLong(com.example.capstonemainproject.ChargerActivity.this, "CHARGER_ID");
+        String loginAccessToken = PreferenceManager.getString(ChargerActivity.this, "LOGIN_ACCESS_TOKEN");
+        long chargerId = PreferenceManager.getLong(ChargerActivity.this, "CHARGER_ID");
 
         chargerService = new ChargerService(loginAccessToken);
 

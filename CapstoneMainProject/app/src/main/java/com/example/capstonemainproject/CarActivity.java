@@ -55,7 +55,7 @@ public class CarActivity extends AppCompatActivity {
                     result -> {
                         if (result.getResultCode() == CAR_REGISTRATION_ACTIVITY_RESULT_OK) {
                             finish();
-                            startActivity(new Intent(com.example.capstonemainproject.CarActivity.this, com.example.capstonemainproject.CarActivity.class));
+                            startActivity(new Intent(CarActivity.this, CarActivity.class));
                         }
                     });
 
@@ -79,9 +79,9 @@ public class CarActivity extends AppCompatActivity {
 
         // 화면 동작
         iViewNewCar.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CarActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(CarActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.CarActivity.this, CarRegistrationActivity.class);
+            Intent intent = new Intent(CarActivity.this, CarRegistrationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivityResultForCar.launch(intent);
@@ -109,7 +109,7 @@ public class CarActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.CarActivity.this, MainActivity.class));
+            startActivity(new Intent(CarActivity.this, MainActivity.class));
 
             return true;
         }
@@ -126,7 +126,7 @@ public class CarActivity extends AppCompatActivity {
         if (getIntent().hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.CarActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(CarActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
     }
 
@@ -151,7 +151,7 @@ public class CarActivity extends AppCompatActivity {
     }
 
     private void loadUserCarList() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CarActivity.this, "LOGIN_ACCESS_TOKEN");
+        String loginAccessToken = PreferenceManager.getString(CarActivity.this, "LOGIN_ACCESS_TOKEN");
 
         carService = new CarService(loginAccessToken);
 
@@ -185,7 +185,7 @@ public class CarActivity extends AppCompatActivity {
     }
 
     private void showDialogForCarDetails(Car car) {
-        Dialog dialog = new Dialog(com.example.capstonemainproject.CarActivity.this);
+        Dialog dialog = new Dialog(CarActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_car_details);
 
@@ -210,20 +210,20 @@ public class CarActivity extends AppCompatActivity {
     }
 
     private void showDialogForCarDelete(long carId) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(com.example.capstonemainproject.CarActivity.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CarActivity.this);
 
         alertDialogBuilder
                 .setTitle("차량 삭제")
                 .setMessage("선택한 차량을 삭제하시겠습니까?\n해당 차량의 예약 및 기록이 함께 삭제됩니다.")
                 .setCancelable(true)
                 .setPositiveButton("확인", (dialog, which) -> {
-                    String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CarActivity.this, "LOGIN_ACCESS_TOKEN");
+                    String loginAccessToken = PreferenceManager.getString(CarActivity.this, "LOGIN_ACCESS_TOKEN");
 
                     carService = new CarService(loginAccessToken, carId);
                     carService.execute(CAR_SERVICE_DELETE_USER_CAR);
 
                     finish();
-                    startActivity(new Intent(com.example.capstonemainproject.CarActivity.this, com.example.capstonemainproject.CarActivity.class));
+                    startActivity(new Intent(CarActivity.this, CarActivity.class));
                 })
                 .setNegativeButton("취소", (dialog, which) -> dialog.cancel())
                 .create()

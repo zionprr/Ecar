@@ -184,14 +184,14 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             } else {
                 // 검색 요청 객체 생성
                 SearchConditionDto searchConditionDto = getSearchConditionDto(search);
-                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
                 // 검색 서비스 주입
                 searchService = new SearchService(loginAccessToken, searchConditionDto);
 
                 // 충전소 검색
                 try {
-                    Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.SearchActivity.class);
+                    Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("Search", search);
                     intent.putExtra("ConditionCpType", conditionCpType);
@@ -227,14 +227,14 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             } else {
                 // 검색 요청 객체 생성
                 SearchLocationDto searchLocationDto = getSearchLocationDto();
-                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
                 // 검색 서비스 주입
                 searchService = new SearchService(loginAccessToken, searchLocationDto);
 
                 // 충전소 검색
                 try {
-                    Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.SearchActivity.class);
+                    Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("ConditionCpType", conditionCpType);
                     intent.putExtra("ConditionChargerType", conditionChargerType);
@@ -277,7 +277,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             checkRuntimePermissions();
         }
 
-        gpsTracker = new GpsTracker(com.example.capstonemainproject.SearchActivity.this);
+        gpsTracker = new GpsTracker(SearchActivity.this);
         currentLocation = gpsTracker.getLocation();
 
         if (currentLocation != null) {
@@ -365,10 +365,10 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             TextView textNavCashPoint = findViewById(R.id.textView_nav_cash_point);
             Button btnCash = findViewById(R.id.btn_nav_cash);
 
-            String userName = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "USER_NAME");
-            String userEmail = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "USER_EMAIL");
-            int userCash = PreferenceManager.getInt(com.example.capstonemainproject.SearchActivity.this, "USER_CASH");
-            int userCashPoint = PreferenceManager.getInt(com.example.capstonemainproject.SearchActivity.this, "USER_CASH_POINT");
+            String userName = PreferenceManager.getString(SearchActivity.this, "USER_NAME");
+            String userEmail = PreferenceManager.getString(SearchActivity.this, "USER_EMAIL");
+            int userCash = PreferenceManager.getInt(SearchActivity.this, "USER_CASH");
+            int userCashPoint = PreferenceManager.getInt(SearchActivity.this, "USER_CASH_POINT");
 
             textNavName.setText(userName);
             textNavEmail.setText(userEmail);
@@ -376,9 +376,9 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             textNavCashPoint.setText(String.valueOf(userCashPoint));
 
             btnCash.setOnClickListener(v -> {
-                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
-                Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.CashActivity.class);
+                Intent intent = new Intent(SearchActivity.this, CashActivity.class);
                 intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                 startActivity(intent);
@@ -390,7 +390,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.SearchActivity.this, MainActivity.class));
+            startActivity(new Intent(SearchActivity.this, MainActivity.class));
 
             return true;
         }
@@ -411,7 +411,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
         if (currentIntent.hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = currentIntent.getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(SearchActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
 
         if (currentIntent.hasExtra("SearchResults")) {
@@ -424,9 +424,9 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void updateLoginUserInfo() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
+        String loginAccessToken = PreferenceManager.getString(SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
-        userBasicService = new UserBasicService(loginAccessToken, com.example.capstonemainproject.SearchActivity.this);
+        userBasicService = new UserBasicService(loginAccessToken, SearchActivity.this);
         userBasicService.execute(USER_BASIC_SERVICE_GET_USER_INFO);
     }
 
@@ -443,21 +443,26 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             drawerLayoutSearch.closeDrawers();
 
             Intent intent;
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
             switch (item.getItemId()) {
                 case R.id.menu_user: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.UserActivity.class);
+                    intent = new Intent(SearchActivity.this, UserActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
                 }
                 case R.id.menu_reservation: {
+                    intent = new Intent(SearchActivity.this, ReservationStatementActivity.class);
+                    intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
+                    intent.putExtra("REQUEST_POSITION", 0);
 
+                    startActivity(intent);
+                    break;
                 }
                 case R.id.menu_bookmark: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, HistoryAndBookmarkActivity.class);
+                    intent = new Intent(SearchActivity.this, HistoryAndBookmarkActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("REQUEST_POSITION", 1);
 
@@ -465,21 +470,21 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
                     break;
                 }
                 case R.id.menu_car: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, CarActivity.class);
+                    intent = new Intent(SearchActivity.this, CarActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
                 }
                 case R.id.menu_account: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.BankActivity.class);
+                    intent = new Intent(SearchActivity.this, BankActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
                     startActivity(intent);
                     break;
                 }
                 case R.id.menu_notification: {
-                    intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.UserSettingActivity.class);
+                    intent = new Intent(SearchActivity.this, UserSettingActivity.class);
                     intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
                     intent.putExtra("REQUEST_POSITION", 2);
 
@@ -494,7 +499,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
     private void settingCustomViews() {
         // 검색 조건(1) : 충전 방식
         ArrayAdapter<CharSequence> adapterCpType =
-                ArrayAdapter.createFromResource(com.example.capstonemainproject.SearchActivity.this, R.array.custom_array_cpType, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(SearchActivity.this, R.array.custom_array_cpType, android.R.layout.simple_spinner_item);
 
         adapterCpType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -515,7 +520,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
 
         // 검색 조건(2) : 충전기 타입
         ArrayAdapter<CharSequence> adapterChargerType =
-                ArrayAdapter.createFromResource(com.example.capstonemainproject.SearchActivity.this, R.array.custom_array_chargerType, android.R.layout.simple_spinner_item);
+                ArrayAdapter.createFromResource(SearchActivity.this, R.array.custom_array_chargerType, android.R.layout.simple_spinner_item);
 
         adapterChargerType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -575,7 +580,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void showDialogForLocationServiceSetting() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(com.example.capstonemainproject.SearchActivity.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SearchActivity.this);
 
         alertDialogBuilder
                 .setTitle("위치 서비스 비활성화")
@@ -594,10 +599,10 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
     // 권한 확인
     private void checkRuntimePermissions() {
         int fineLocationPermission
-                = ContextCompat.checkSelfPermission(com.example.capstonemainproject.SearchActivity.this, requiredPermissions[0]);
+                = ContextCompat.checkSelfPermission(SearchActivity.this, requiredPermissions[0]);
 
         int coarseLocationPermission
-                = ContextCompat.checkSelfPermission(com.example.capstonemainproject.SearchActivity.this, requiredPermissions[1]);
+                = ContextCompat.checkSelfPermission(SearchActivity.this, requiredPermissions[1]);
 
         if (fineLocationPermission == PackageManager.PERMISSION_GRANTED
                 && coarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
@@ -605,15 +610,15 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
             return;
         }
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(com.example.capstonemainproject.SearchActivity.this, requiredPermissions[0])
-                || ActivityCompat.shouldShowRequestPermissionRationale(com.example.capstonemainproject.SearchActivity.this, requiredPermissions[1])) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(SearchActivity.this, requiredPermissions[0])
+                || ActivityCompat.shouldShowRequestPermissionRationale(SearchActivity.this, requiredPermissions[1])) {
 
             String permissionSettingMsg = "이 애플리케이션을 실행하려면 위치 접근 권한이 필요합니다.";
 
             SnackBarManager.showMessage(findViewById(R.id.layout_search), permissionSettingMsg);
         }
 
-        ActivityCompat.requestPermissions(com.example.capstonemainproject.SearchActivity.this, requiredPermissions, PERMISSIONS_REQUEST_CODE);
+        ActivityCompat.requestPermissions(SearchActivity.this, requiredPermissions, PERMISSIONS_REQUEST_CODE);
     }
 
     // STT
@@ -660,7 +665,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void showDialogForMarkerDetails(MarkerTag markerTag) {
-        Dialog dialog = new Dialog(com.example.capstonemainproject.SearchActivity.this);
+        Dialog dialog = new Dialog(SearchActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_marker_details);
 
@@ -679,7 +684,7 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void showDialogForChargerDetails(Charger charger) {
-        Dialog dialog = new Dialog(com.example.capstonemainproject.SearchActivity.this);
+        Dialog dialog = new Dialog(SearchActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_charger_details);
 
@@ -708,9 +713,9 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
         btnReservation.setOnClickListener(v -> {
             dialog.dismiss();
 
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, com.example.capstonemainproject.ReservationActivity.class);
+            Intent intent = new Intent(SearchActivity.this, Reservation1Activity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("ChargerId", charger.getId());
 
@@ -721,9 +726,9 @@ public class SearchActivity extends AppCompatActivity implements OnMapReadyCallb
         btnMore.setOnClickListener(v -> {
             dialog.dismiss();
 
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.SearchActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(SearchActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.SearchActivity.this, ChargerActivity.class);
+            Intent intent = new Intent(SearchActivity.this, ChargerActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("ChargerId", charger.getId());
             intent.putExtra("Record", true);

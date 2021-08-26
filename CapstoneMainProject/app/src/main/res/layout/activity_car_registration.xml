@@ -29,7 +29,8 @@
         android:gravity="center"
         android:text="새 차량 등록"
         android:textColor="#1F51B7"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,7 +49,8 @@
             android:gravity="left"
             android:hint="차량 모델"
             android:padding="10dp"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editText_car_model_year"
@@ -59,7 +61,8 @@
             android:gravity="left"
             android:hint="차량 모델 연도"
             android:padding="10dp"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editText_car_type"
@@ -70,7 +73,8 @@
             android:gravity="left"
             android:hint="차량 유형 (예: 소형, 중형, 대형)"
             android:padding="10dp"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editText_car_number"
@@ -81,7 +85,8 @@
             android:gravity="left"
             android:hint="차량 번호 (예: XX가 XXXX)"
             android:padding="10dp"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_car_register"
@@ -93,6 +98,7 @@
             android:fontFamily="@font/cafe_24_ssurround_air"
             android:text="등록"
             android:textColor="@color/hite"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
     </LinearLayout>

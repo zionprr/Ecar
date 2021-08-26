@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> {
             String email = eTextEmail.getText().toString().trim();
             String password = eTextPassword.getText().toString().trim();
-            String deviceToken = PreferenceManager.getString(com.example.capstonemainproject.LoginActivity.this, "DEVICE_TOKEN");
+            String deviceToken = PreferenceManager.getString(LoginActivity.this, "DEVICE_TOKEN");
 
             if (deviceToken.isEmpty()) {
                 String deviceTokenNullMsg = "구글 플레이 서비스 로그인이 필요합니다.";
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (commonResponse.isSuccess()) {       // 로그인 성공
                         SingleResultResponse<String> singleResultResponse = (SingleResultResponse<String>) commonResponse;
 
-                        Intent intent = new Intent(com.example.capstonemainproject.LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("LOGIN_ACCESS_TOKEN", singleResultResponse.getData());
 
                         startActivity(intent);
@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // 화면 동작(2) : 회원가입 버튼
         btnSignUp.setOnClickListener(v -> {
-            Intent intent = new Intent(com.example.capstonemainproject.LoginActivity.this, SignUpActivity.class);
+            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
 
             startActivityResultForSignUp.launch(intent);
         });
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.w("FCM", "Token registration failed.", task.getException());
                             }
 
-                            PreferenceManager.setString(com.example.capstonemainproject.LoginActivity.this, "DEVICE_TOKEN", task.getResult());
+                            PreferenceManager.setString(LoginActivity.this, "DEVICE_TOKEN", task.getResult());
                         }
                 );
     }

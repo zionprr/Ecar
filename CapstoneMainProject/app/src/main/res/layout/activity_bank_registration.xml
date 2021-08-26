@@ -40,7 +40,8 @@
                 android:gravity="center"
                 android:text="새 계좌 추가"
                 android:textColor="#1F51B7"
-                android:textSize="30dp" />
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,7 +70,8 @@
                     android:gravity="left"
                     android:hint="은행명"
                     android:padding="10dp"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/editText_account_number"
@@ -80,7 +82,8 @@
                     android:gravity="left"
                     android:hint="계좌 번호"
                     android:padding="10dp"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/editText_account_owner"
@@ -91,7 +94,8 @@
                     android:gravity="left"
                     android:hint="소유주"
                     android:padding="10dp"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_account_auth"
@@ -103,6 +107,7 @@
                     android:fontFamily="@font/cafe_24_ssurround_air"
                     android:text="계좌 인증"
                     android:textColor="@color/hite"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -135,7 +140,8 @@
                     android:gravity="left"
                     android:hint="인증 확인 메시지"
                     android:padding="10dp"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/editText_account_pay_password"
@@ -147,7 +153,8 @@
                     android:hint="결제 비밀번호"
                     android:inputType="textPassword"
                     android:padding="10dp"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/editText_account_pay_password_check"
@@ -159,7 +166,8 @@
                     android:hint="결제 비밀번호 확인"
                     android:inputType="textPassword"
                     android:padding="10dp"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_account_register"
@@ -171,6 +179,7 @@
                     android:fontFamily="@font/cafe_24_ssurround_air"
                     android:text="추가"
                     android:textColor="@color/hite"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
             </LinearLayout>

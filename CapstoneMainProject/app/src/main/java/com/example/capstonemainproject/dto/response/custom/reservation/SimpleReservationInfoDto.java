@@ -8,20 +8,21 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class ReserveResponseDto {
+public class SimpleReservationInfoDto {
 
-    private Long reservationId;
+    private String stationName;
 
-    private Long chargerId;
+    private String chargerName;
 
     private String userName;
 
     private String carNumber;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime reservedAt;
+    private LocalDateTime chargeStartDateTime;
 
-    private String state;
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime chargeEndDateTime;
 
     private Integer fares;
 }

@@ -102,9 +102,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="20dp"
                     android:fontFamily="@font/cafe_24_ssurround_air"
-                    android:text="이름 :"
+                    android:text="이름  :"
                     android:textColor="@color/gray_blur"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -131,9 +131,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="20dp"
                     android:fontFamily="@font/cafe_24_ssurround_air"
-                    android:text="타입 :"
+                    android:text="타입  :"
                     android:textColor="@color/gray_blur"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -160,9 +160,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="20dp"
                     android:fontFamily="@font/cafe_24_ssurround_air"
-                    android:text="상태 :"
+                    android:text="상태  :"
                     android:textColor="@color/gray_blur"
                     android:textSize="16dp"
                     android:textStyle="bold" />

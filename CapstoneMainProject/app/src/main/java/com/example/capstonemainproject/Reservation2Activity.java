@@ -25,6 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
 import com.example.capstonemainproject.domain.Car;
+import com.example.capstonemainproject.domain.ReservationStatement;
 import com.example.capstonemainproject.dto.request.reservation.RequestReservationDto;
 import com.example.capstonemainproject.dto.response.common.CommonResponse;
 import com.example.capstonemainproject.dto.response.common.ListResultResponse;
@@ -52,7 +53,7 @@ public class Reservation2Activity extends AppCompatActivity {
 
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd - HH:mm");
 
-    private Toolbar toolbarReservation2;
+    private Toolbar toolbarReservation;
 
     private TextView textStartDateTime, textEndDateTime, textMaxEndDateTime, textFares;
     private TextView textCarNumber, textCarModel, textCarType, linkCarRegistration;
@@ -78,7 +79,7 @@ public class Reservation2Activity extends AppCompatActivity {
         saveIntentValues();
 
         // 화면 설정
-        toolbarReservation2 = findViewById(R.id.toolbar_reservation2);
+        toolbarReservation = findViewById(R.id.toolbar_reservation2);
         textStartDateTime = findViewById(R.id.textView_reservation2_start_dateTime);
         textEndDateTime = findViewById(R.id.textView_reservation2_end_dateTime);
         textMaxEndDateTime = findViewById(R.id.textView_reservation2_max_end_dateTime);
@@ -90,7 +91,7 @@ public class Reservation2Activity extends AppCompatActivity {
         layoutFares = findViewById(R.id.layout_reservation2_fares);
         layoutCarNotFound = findViewById(R.id.layout_reservation2_car_notFound);
         listViewCar = findViewById(R.id.listView_reservation2_car);
-        btnReservationComplete = findViewById(R.id.btn_reservation_complete);
+        btnReservationComplete = findViewById(R.id.btn_reservation2_complete);
         spinnerReservationTotalTime = findViewById(R.id.spinner_reservation2_total_time);
 
         // 상단바 및 스크롤
@@ -99,9 +100,9 @@ public class Reservation2Activity extends AppCompatActivity {
 
         // 화면 동작(1) : 차량 등록 링크
         linkCarRegistration.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.Reservation2Activity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(Reservation2Activity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.Reservation2Activity.this, com.example.capstonemainproject.CarRegistrationActivity.class);
+            Intent intent = new Intent(Reservation2Activity.this, CarRegistrationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivity(intent);
@@ -109,8 +110,8 @@ public class Reservation2Activity extends AppCompatActivity {
 
         // 화면 동작(2) : 예약 완료
         btnReservationComplete.setOnClickListener(v -> {
-            long chargerId = PreferenceManager.getLong(com.example.capstonemainproject.Reservation2Activity.this, "CHARGER_ID");
-            long carId = PreferenceManager.getLong(com.example.capstonemainproject.Reservation2Activity.this, "CAR_ID");
+            long chargerId = PreferenceManager.getLong(Reservation2Activity.this, "CHARGER_ID");
+            long carId = PreferenceManager.getLong(Reservation2Activity.this, "CAR_ID");
 
             if (endDateTime == null || carId == -1) {
                 String inputValuesEmptyMsg = "예약 시간과 차량을 모두 선택해야 합니다.";
@@ -118,7 +119,7 @@ public class Reservation2Activity extends AppCompatActivity {
                 SnackBarManager.showMessage(v, inputValuesEmptyMsg);
 
             } else {
-                String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.Reservation2Activity.this, "LOGIN_ACCESS_TOKEN");
+                String loginAccessToken = PreferenceManager.getString(Reservation2Activity.this, "LOGIN_ACCESS_TOKEN");
                 RequestReservationDto requestReservationDto = getRequestReservationDto(chargerId, carId);
 
                 reservationService = new ReservationService(loginAccessToken, requestReservationDto);
@@ -127,7 +128,12 @@ public class Reservation2Activity extends AppCompatActivity {
                     CommonResponse commonResponse = reservationService.execute(RESERVATION_SERVICE_RESERVE).get();
 
                     if (commonResponse.isSuccess()) {
-                        setResult(RESULT_OK);
+                        SingleResultResponse<ReservationStatement> singleResultResponse = (SingleResultResponse<ReservationStatement>) commonResponse;
+
+                        Intent intent = new Intent();
+                        intent.putExtra("RESERVATION_STATEMENT", singleResultResponse.getData());
+
+                        setResult(RESULT_OK, intent);
 
                     } else {
                         setResult(RESERVATION2_ACTIVITY_RESULT_FAIL);
@@ -164,7 +170,7 @@ public class Reservation2Activity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.Reservation2Activity.this, MainActivity.class));
+            startActivity(new Intent(Reservation2Activity.this, MainActivity.class));
 
             return true;
         }
@@ -183,20 +189,20 @@ public class Reservation2Activity extends AppCompatActivity {
         if (currentIntent.hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = currentIntent.getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.Reservation2Activity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(Reservation2Activity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
 
         if (currentIntent.hasExtra("ChargerId")) {
             long chargerId = currentIntent.getLongExtra("ChargerId", -1);
 
-            PreferenceManager.setLong(com.example.capstonemainproject.Reservation2Activity.this, "CHARGER_ID", chargerId);
+            PreferenceManager.setLong(Reservation2Activity.this, "CHARGER_ID", chargerId);
         }
 
         stringOfStartDateTime = currentIntent.getStringExtra("StartDateTime");
     }
 
     private void settingActionBar() {
-        setSupportActionBar(toolbarReservation2);
+        setSupportActionBar(toolbarReservation);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");
@@ -216,8 +222,8 @@ public class Reservation2Activity extends AppCompatActivity {
     }
 
     private void loadMaxEndDateTime() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.Reservation2Activity.this, "LOGIN_ACCESS_TOKEN");
-        long chargerId = PreferenceManager.getLong(com.example.capstonemainproject.Reservation2Activity.this, "CHARGER_ID");
+        String loginAccessToken = PreferenceManager.getString(Reservation2Activity.this, "LOGIN_ACCESS_TOKEN");
+        long chargerId = PreferenceManager.getLong(Reservation2Activity.this, "CHARGER_ID");
 
         reservationService = new ReservationService(loginAccessToken, chargerId, stringOfStartDateTime);
 
@@ -251,7 +257,7 @@ public class Reservation2Activity extends AppCompatActivity {
     }
 
     private void loadUserCarList() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.Reservation2Activity.this, "LOGIN_ACCESS_TOKEN");
+        String loginAccessToken = PreferenceManager.getString(Reservation2Activity.this, "LOGIN_ACCESS_TOKEN");
 
         carService = new CarService(loginAccessToken);
 
@@ -294,7 +300,7 @@ public class Reservation2Activity extends AppCompatActivity {
         }
 
         ArrayAdapter<Integer> arrayAdapter =
-                new ArrayAdapter<>(com.example.capstonemainproject.Reservation2Activity.this, android.R.layout.simple_spinner_dropdown_item, spinnerMinutes);
+                new ArrayAdapter<>(Reservation2Activity.this, android.R.layout.simple_spinner_dropdown_item, spinnerMinutes);
 
         spinnerReservationTotalTime.setAdapter(arrayAdapter);
         spinnerReservationTotalTime.setFocusable(true);
@@ -303,7 +309,7 @@ public class Reservation2Activity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 LocalDateTime targetDateTime = maxEndDateTime.getTargetDateTime();
-                int fares = (int) ((spinnerMinutes.get(position) / 60) * maxEndDateTime.getFaresPerHour());
+                int fares = (int) ((spinnerMinutes.get(position) / 60.0) * maxEndDateTime.getFaresPerHour());
 
                 if (position != 0) {
                     endDateTime = targetDateTime.plusMinutes(spinnerMinutes.get(position));
@@ -362,7 +368,7 @@ public class Reservation2Activity extends AppCompatActivity {
             carNumber.setText(car.getCarNumber());
 
             rowView.setOnClickListener(v -> {
-                PreferenceManager.setLong(com.example.capstonemainproject.Reservation2Activity.this, "CAR_ID", car.getId());
+                PreferenceManager.setLong(Reservation2Activity.this, "CAR_ID", car.getId());
 
                 textCarNumber.setText(car.getCarNumber());
                 textCarModel.setText(String.format("%s %s", car.getCarModelYear(), car.getCarModel()));

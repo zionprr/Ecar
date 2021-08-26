@@ -58,7 +58,7 @@ public class CarRegistrationActivity extends AppCompatActivity {
             String carType = eTextCarType.getText().toString();
             String carNumber = eTextCarNumber.getText().toString();
 
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CarRegistrationActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(CarRegistrationActivity.this, "LOGIN_ACCESS_TOKEN");
             RegisterCarDto registerCarDto = getRegisterCarDto(carModel, carModelYear, carType, carNumber);
 
             carService = new CarService(loginAccessToken, registerCarDto);
@@ -97,7 +97,7 @@ public class CarRegistrationActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.CarRegistrationActivity.this, MainActivity.class));
+            startActivity(new Intent(CarRegistrationActivity.this, MainActivity.class));
 
             return true;
         }
@@ -114,7 +114,7 @@ public class CarRegistrationActivity extends AppCompatActivity {
         if (getIntent().hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.CarRegistrationActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(CarRegistrationActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
     }
 

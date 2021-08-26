@@ -43,10 +43,10 @@ public class UserActivity extends AppCompatActivity {
                     new ActivityResultContracts.StartActivityForResult(),
                     result -> {
                         if (result.getResultCode() == CAR_REGISTRATION_ACTIVITY_RESULT_OK) {
-                            startActivity(new Intent(com.example.capstonemainproject.UserActivity.this, CarActivity.class));
+                            startActivity(new Intent(UserActivity.this, CarActivity.class));
 
                         } else if (result.getResultCode() == BANK_REGISTRATION_ACTIVITY_RESULT_OK) {
-                            startActivity(new Intent(com.example.capstonemainproject.UserActivity.this, BankActivity.class));
+                            startActivity(new Intent(UserActivity.this, BankActivity.class));
                         }
                     });
 
@@ -79,9 +79,9 @@ public class UserActivity extends AppCompatActivity {
 
         // 화면 동작(1) : 사용자 정보 수정
         layoutUserSetting.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, UserSettingActivity.class);
+            Intent intent = new Intent(UserActivity.this, UserSettingActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("REQUEST_POSITION", 0);
 
@@ -90,9 +90,9 @@ public class UserActivity extends AppCompatActivity {
 
         // 화면 동작(2) : 비밀번호 변경
         layoutUserPassword.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, UserSettingActivity.class);
+            Intent intent = new Intent(UserActivity.this, UserSettingActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("REQUEST_POSITION", 1);
 
@@ -101,9 +101,9 @@ public class UserActivity extends AppCompatActivity {
 
         // 화면 동작(3) : 알림 설정
         layoutUserNotification.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, UserSettingActivity.class);
+            Intent intent = new Intent(UserActivity.this, UserSettingActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
             intent.putExtra("REQUEST_POSITION", 2);
 
@@ -112,9 +112,9 @@ public class UserActivity extends AppCompatActivity {
 
         // 화면 동작(4) : 등록 차량 목록
         layoutCarList.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, CarActivity.class);
+            Intent intent = new Intent(UserActivity.this, CarActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivity(intent);
@@ -122,9 +122,9 @@ public class UserActivity extends AppCompatActivity {
 
         // 화면 동작(5) : 새 차량 등록
         layoutNewCar.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, CarRegistrationActivity.class);
+            Intent intent = new Intent(UserActivity.this, CarRegistrationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivityResultForUser.launch(intent);
@@ -132,9 +132,9 @@ public class UserActivity extends AppCompatActivity {
 
         // 화면 동작(6) : 연결 계좌 목록
         layoutAccountList.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, BankActivity.class);
+            Intent intent = new Intent(UserActivity.this, BankActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivity(intent);
@@ -142,9 +142,9 @@ public class UserActivity extends AppCompatActivity {
 
         // 화면 동작(7) : 새 계좌 추가
         layoutNewAccount.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, BankRegistrationActivity.class);
+            Intent intent = new Intent(UserActivity.this, BankRegistrationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivityResultForUser.launch(intent);
@@ -152,9 +152,9 @@ public class UserActivity extends AppCompatActivity {
 
         // 화면 동작(8) : 금액 충전/환불
         layoutUserCash.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.UserActivity.this, CashActivity.class);
+            Intent intent = new Intent(UserActivity.this, CashActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivity(intent);
@@ -171,7 +171,7 @@ public class UserActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.UserActivity.this, MainActivity.class));
+            startActivity(new Intent(UserActivity.this, MainActivity.class));
 
             return true;
         }
@@ -188,7 +188,7 @@ public class UserActivity extends AppCompatActivity {
         if (getIntent().hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(UserActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
     }
 
@@ -203,7 +203,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void loadUserInfo() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.UserActivity.this, "LOGIN_ACCESS_TOKEN");
+        String loginAccessToken = PreferenceManager.getString(UserActivity.this, "LOGIN_ACCESS_TOKEN");
 
         userBasicService = new UserBasicService(loginAccessToken);
 

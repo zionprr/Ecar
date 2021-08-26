@@ -62,7 +62,7 @@ public class BankActivity extends AppCompatActivity {
                     result -> {
                         if (result.getResultCode() == BANK_REGISTRATION_ACTIVITY_RESULT_OK) {
                             finish();
-                            startActivity(new Intent(com.example.capstonemainproject.BankActivity.this, com.example.capstonemainproject.BankActivity.class));
+                            startActivity(new Intent(BankActivity.this, BankActivity.class));
                         }
                     });
 
@@ -86,9 +86,9 @@ public class BankActivity extends AppCompatActivity {
 
         // 화면 동작
         iViewNewAccount.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.BankActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(BankActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.BankActivity.this, com.example.capstonemainproject.BankRegistrationActivity.class);
+            Intent intent = new Intent(BankActivity.this, BankRegistrationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivityResultForBank.launch(intent);
@@ -116,7 +116,7 @@ public class BankActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.BankActivity.this, MainActivity.class));
+            startActivity(new Intent(BankActivity.this, MainActivity.class));
 
             return true;
         }
@@ -133,7 +133,7 @@ public class BankActivity extends AppCompatActivity {
         if (getIntent().hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.BankActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(BankActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
     }
 
@@ -158,7 +158,7 @@ public class BankActivity extends AppCompatActivity {
     }
 
     private void loadUserAccountList() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.BankActivity.this, "LOGIN_ACCESS_TOKEN");
+        String loginAccessToken = PreferenceManager.getString(BankActivity.this, "LOGIN_ACCESS_TOKEN");
 
         bankService = new BankService(loginAccessToken);
 
@@ -173,7 +173,7 @@ public class BankActivity extends AppCompatActivity {
                     textAccountNotFound.setVisibility(View.GONE);
                     listViewAccount.setVisibility(View.VISIBLE);
 
-                    listViewAccount.setAdapter(new com.example.capstonemainproject.BankActivity.CustomAccountList(this, userAccountList));
+                    listViewAccount.setAdapter(new BankActivity.CustomAccountList(this, userAccountList));
 
                 } else {
                     listViewAccount.setVisibility(View.GONE);
@@ -192,7 +192,7 @@ public class BankActivity extends AppCompatActivity {
     }
 
     private void showDialogForAccountDetails(BankAccount account) {
-        Dialog dialog = new Dialog(com.example.capstonemainproject.BankActivity.this);
+        Dialog dialog = new Dialog(BankActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_bank_account_details);
 
@@ -226,20 +226,20 @@ public class BankActivity extends AppCompatActivity {
     }
 
     private void showDialogForMainAccountChange(long bankId) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(com.example.capstonemainproject.BankActivity.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BankActivity.this);
 
         alertDialogBuilder
                 .setTitle("주계좌 변경")
                 .setMessage("선택한 계좌를 주사용 계좌로 변경하시겠습니까?")
                 .setCancelable(true)
                 .setPositiveButton("확인", (dialog, which) -> {
-                    String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.BankActivity.this, "LOGIN_ACCESS_TOKEN");
+                    String loginAccessToken = PreferenceManager.getString(BankActivity.this, "LOGIN_ACCESS_TOKEN");
 
                     bankService = new BankService(loginAccessToken, bankId);
                     bankService.execute(BANK_SERVICE_CHANGE_MAIN_USED_ACCOUNT);
 
                     finish();
-                    startActivity(new Intent(com.example.capstonemainproject.BankActivity.this, com.example.capstonemainproject.BankActivity.class));
+                    startActivity(new Intent(BankActivity.this, BankActivity.class));
                 })
                 .setNegativeButton("취소", (dialog, which) -> dialog.cancel())
                 .create()
@@ -247,20 +247,20 @@ public class BankActivity extends AppCompatActivity {
     }
 
     private void showDialogForAccountDelete(long bankId) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(com.example.capstonemainproject.BankActivity.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BankActivity.this);
 
         alertDialogBuilder
                 .setTitle("계좌 삭제")
                 .setMessage("선택한 계좌를 삭제하시겠습니까?")
                 .setCancelable(true)
                 .setPositiveButton("확인", (dialog, which) -> {
-                    String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.BankActivity.this, "LOGIN_ACCESS_TOKEN");
+                    String loginAccessToken = PreferenceManager.getString(BankActivity.this, "LOGIN_ACCESS_TOKEN");
 
                     bankService = new BankService(loginAccessToken, bankId);
                     bankService.execute(BANK_SERVICE_DELETE_USER_ACCOUNT);
 
                     finish();
-                    startActivity(new Intent(com.example.capstonemainproject.BankActivity.this, com.example.capstonemainproject.BankActivity.class));
+                    startActivity(new Intent(BankActivity.this, BankActivity.class));
                 })
                 .setNegativeButton("취소", (dialog, which) -> dialog.cancel())
                 .create()

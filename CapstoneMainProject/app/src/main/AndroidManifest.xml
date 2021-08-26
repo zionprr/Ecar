@@ -10,7 +10,7 @@
 
 
     <application
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -58,8 +58,12 @@
         <activity android:name=".ChargerActivity" />
         <activity android:name=".StationActivity" />
         <activity android:name=".HistoryAndBookmarkActivity" />
-        <activity android:name=".ReservationActivity" />
-        <activity android:name=".Reservation2Activity"/>
+        <activity android:name=".Reservation1Activity" />
+        <activity android:name=".Reservation2Activity" />
+        <activity android:name=".ReservationResult1Activity" />
+        <activity android:name=".ReservationResult2Activity" />
+        <activity android:name=".ReservationResult3Activity"/>
+        <activity android:name=".ReservationPaymentActivity" />
         <activity android:name=".ReservationStatementActivity" />
 
 

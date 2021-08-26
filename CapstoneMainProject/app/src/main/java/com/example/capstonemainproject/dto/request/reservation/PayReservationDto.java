@@ -7,5 +7,7 @@ public class PayReservationDto {
 
     private Long reservationId;
 
+    private String paymentPassword;
+
     private Integer usedCashPoint;
 }

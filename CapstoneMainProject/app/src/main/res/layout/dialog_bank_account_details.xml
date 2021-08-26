@@ -3,12 +3,13 @@
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/shape_rectangle_floarlwhite"
+    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_rectangle_floarlwhite_border_top"
         android:orientation="horizontal"
         android:paddingVertical="15dp"
         android:paddingLeft="15dp"
@@ -73,12 +74,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="10">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="30dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="은행명  :"
                 android:textColor="@color/gray_blur"
@@ -106,7 +108,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="계좌 번호  :"
                 android:textColor="@color/gray_blur"
@@ -134,7 +136,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="30dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="소유주  :"
                 android:textColor="@color/gray_blur"
@@ -162,7 +164,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:fontFamily="@font/cafe_24_ssurround_air"
                 android:text="계좌 연결  :"
                 android:textColor="@color/gray_blur"
@@ -186,6 +188,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/floralwhite"
         android:gravity="right"
         android:orientation="horizontal"
         android:padding="5dp">
