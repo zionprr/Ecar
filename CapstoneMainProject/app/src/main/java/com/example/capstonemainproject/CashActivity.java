@@ -79,16 +79,16 @@ public class CashActivity extends AppCompatActivity {
 
         // 화면 동작(2) : 금액 환불
         btnCashRefund.setOnClickListener(v -> {
-            int userCash = PreferenceManager.getInt(com.example.capstonemainproject.CashActivity.this, "USER_CASH");
+            int userCash = PreferenceManager.getInt(CashActivity.this, "USER_CASH");
 
             showDialogForRefundCash(userCash);
         });
 
         // 화면 동작(3) : 계좌 연결 링크
         linkBankRegistration.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(CashActivity.this, "LOGIN_ACCESS_TOKEN");
 
-            Intent intent = new Intent(com.example.capstonemainproject.CashActivity.this, com.example.capstonemainproject.BankRegistrationActivity.class);
+            Intent intent = new Intent(CashActivity.this, BankRegistrationActivity.class);
             intent.putExtra("LOGIN_ACCESS_TOKEN", loginAccessToken);
 
             startActivity(intent);
@@ -117,7 +117,7 @@ public class CashActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.action_home) {
             finish();
-            startActivity(new Intent(com.example.capstonemainproject.CashActivity.this, MainActivity.class));
+            startActivity(new Intent(CashActivity.this, MainActivity.class));
 
             return true;
         }
@@ -134,7 +134,7 @@ public class CashActivity extends AppCompatActivity {
         if (getIntent().hasExtra("LOGIN_ACCESS_TOKEN")) {
             String loginAccessToken = getIntent().getStringExtra("LOGIN_ACCESS_TOKEN");
 
-            PreferenceManager.setString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
+            PreferenceManager.setString(CashActivity.this, "LOGIN_ACCESS_TOKEN", loginAccessToken);
         }
     }
 
@@ -149,7 +149,7 @@ public class CashActivity extends AppCompatActivity {
     }
 
     private void loadUserCash() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN");
+        String loginAccessToken = PreferenceManager.getString(CashActivity.this, "LOGIN_ACCESS_TOKEN");
 
         userBasicService = new UserBasicService(loginAccessToken);
 
@@ -162,7 +162,7 @@ public class CashActivity extends AppCompatActivity {
 
                 textCash.setText(String.format("%d (원)", user.getCash()));
 
-                PreferenceManager.setInt(com.example.capstonemainproject.CashActivity.this, "USER_CASH", user.getCash());
+                PreferenceManager.setInt(CashActivity.this, "USER_CASH", user.getCash());
 
             } else {
                 String loadUserInfoFailedMsg = "사용자 정보를 불러올 수 없습니다.";
@@ -176,7 +176,7 @@ public class CashActivity extends AppCompatActivity {
     }
 
     private void loadUserMainAccount() {
-        String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN");
+        String loginAccessToken = PreferenceManager.getString(CashActivity.this, "LOGIN_ACCESS_TOKEN");
 
         bankService = new BankService(loginAccessToken);
 
@@ -218,7 +218,7 @@ public class CashActivity extends AppCompatActivity {
     }
 
     private void showDialogForChargeCash() {
-        Dialog dialog = new Dialog(com.example.capstonemainproject.CashActivity.this);
+        Dialog dialog = new Dialog(CashActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_cash_charge);
 
@@ -231,7 +231,7 @@ public class CashActivity extends AppCompatActivity {
         Button btnCancel = dialog.findViewById(R.id.btn_cash_charge_cancel);
 
         btnOk.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(CashActivity.this, "LOGIN_ACCESS_TOKEN");
             CashInDto cashInDto = getCashInDto(Integer.parseInt(cashAmount.getText().toString()), payPassword.getText().toString());
 
             bankService = new BankService(loginAccessToken, cashInDto);
@@ -243,7 +243,7 @@ public class CashActivity extends AppCompatActivity {
                     dialog.dismiss();
 
                     finish();
-                    startActivity(new Intent(com.example.capstonemainproject.CashActivity.this, com.example.capstonemainproject.CashActivity.class));
+                    startActivity(new Intent(CashActivity.this, CashActivity.class));
 
                 } else {
                     String chargeCashFailedMsg = "연결된 계좌가 없거나 결제 비밀번호가 틀립니다.";
@@ -260,7 +260,7 @@ public class CashActivity extends AppCompatActivity {
     }
 
     private void showDialogForRefundCash(int userCash) {
-        Dialog dialog = new Dialog(com.example.capstonemainproject.CashActivity.this);
+        Dialog dialog = new Dialog(CashActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_cash_refund);
 
@@ -276,7 +276,7 @@ public class CashActivity extends AppCompatActivity {
         currentCash.setText(String.valueOf(userCash));
 
         btnOk.setOnClickListener(v -> {
-            String loginAccessToken = PreferenceManager.getString(com.example.capstonemainproject.CashActivity.this, "LOGIN_ACCESS_TOKEN");
+            String loginAccessToken = PreferenceManager.getString(CashActivity.this, "LOGIN_ACCESS_TOKEN");
             CashOutDto cashOutDto = getCashOutDto(Integer.parseInt(cashAmount.getText().toString()), payPassword.getText().toString());
 
             bankService = new BankService(loginAccessToken, cashOutDto);
@@ -288,7 +288,7 @@ public class CashActivity extends AppCompatActivity {
                     dialog.dismiss();
 
                     finish();
-                    startActivity(new Intent(com.example.capstonemainproject.CashActivity.this, com.example.capstonemainproject.CashActivity.class));
+                    startActivity(new Intent(CashActivity.this, CashActivity.class));
 
                 } else {
                     String refundCashFailedMsg = "연결된 계좌가 없거나 결제 비밀번호가 틀립니다.\n또는 보유 금액을 초과한 요청입니다.";

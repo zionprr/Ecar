@@ -10,8 +10,8 @@ import java.net.URL;
 
 public class HttpConnectionProvider {
 
-    private static final String HOST_SERVER = "http://192.168.219.101:8080";
-
+    // private static final String HOST_SERVER = "http://192.168.219.101:8080";
+    private static final String HOST_SERVER = "http://172.21.12.35:8080";   // 학교
     public String getHostServer() {
         return HOST_SERVER;
     }
